@@ -1,0 +1,9 @@
+(a) Run the attached script called "BlockedProcess Threshold Configuration Script - 5 Sec". This script will set the blocked process threshold to 5 sec. 
+(b) Run sp_configure and ensure the changes has taken place.  By default it will be 0 once you run the above mentioned script it will have RUN VLAUE=5
+(b) Open the attached Script called "BlockedProcess Threshold Trace Script". Change the Tracefile path to appropriate location and Run it. This script will create a trace with required event and max 50 MB size. This trace will  log Any session which gets blocked more than 5 sec 
+(c) Ensure the trace is created by running the following query and send the result 
+	SELECT * FROM ::fn_trace_getinfo(NULL) 
+(d) Once the sample is captured for 2-3 business days we need to stop the trace. To stop the trace open attached script called "Script to Stop and delete BlockedProcess Threshold Trace". Change the traceID accordingly and run
+
+
+select cast(TextData as xml), SPID, EndTime, Duration/1000/1000from fn_trace_gettable(N'c:\BlockedProcessTrace.trc', default)where eventclass = 137

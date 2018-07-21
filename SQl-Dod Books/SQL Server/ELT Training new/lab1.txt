@@ -1,0 +1,48 @@
+Create a table called Employee with  EmployeeID, Name, DepartmentID  and ManagerID
+Create a table called Department with DepartmentID and Name
+
+CREATE TABLE Department(
+DepartmentID INT PRIMARY KEY,
+Name NVARCHAR(50)
+)
+Insert Department select 1,'HR'
+Insert Department Select 2 ,'ACCOUNTING'
+Insert Department Select 3,'RESEARCH'
+Insert Department Select 4,'SALES'
+Insert Department Select 5,'OPERATIONS'
+Insert Department Select 6,'BD'
+
+
+GO
+
+CREATE TABLE Employee(
+EmployeeID INT PRIMARY KEY,
+Name NVARCHAR(50),
+ManagerID INT,
+DepartmentID int
+)
+GO
+-- Insert Sample Data
+INSERT INTO Employee
+SELECT 1, 'Mike', 3,1
+UNION ALL
+SELECT 2, 'David', 3,2
+UNION ALL
+SELECT 3, 'Roger', NULL,1
+UNION ALL
+SELECT 4, 'Marry',2,3
+UNION ALL
+SELECT 5, 'Joseph',2,4
+UNION ALL
+SELECT 7, 'Ben',2,2
+GO
+-- Check the data
+SELECT *
+FROM Employee
+GO
+
+
+(a)	Find EmployeeID, Name as EmpName , EmployeeDepartmentName, ManagerName , ManagerdepartmentName using JOIN. Needs to get all the employee and if there is no Manager he is CEO
+(b)	Get count of employee for each department with department name
+(c)	Get the department which have more number of EMP
+(d)	Get the department which is not having any emp. 
