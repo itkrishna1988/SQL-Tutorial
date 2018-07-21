@@ -1,0 +1,76 @@
+;WITH IndexDetails_0 AS
+(
+SELECT
+	OBJECT_NAME(I.OBJECT_ID) TableName
+	, I.name IndexName
+	, C.name ColumnName	
+	, I.type_desc as Index_Type
+	, CASE WHEN I.is_unique = 1 then 'Unique' ELSE 'Non Unique' END as Unique_Type
+	, CASE WHEN I.is_primary_key = 1 then 'Yes' ELSE 'No' END as PrimaryKey
+	, CASE WHEN I.is_unique_constraint = 1 then 'Yes' ELSE 'No' END as UniqueConstraint
+	, CASE WHEN I.is_disabled = 1 THEN 'Yes' ELSE 'No' End as [Disabled]
+	, CASE WHEN I.has_filter = 1 THEN 'Yes' ELSE 'No' END AS [FilterIndex]
+	, CASE WHEN I.has_filter = 1 THEN filter_definition ELSE NULL END as [FilterDefinition]
+	, IC.is_descending_key 
+	, IC.is_included_column 
+	, IC.key_ordinal 
+FROM sys.indexes I
+JOIN sys.index_columns IC
+ON I.object_id = IC.object_id 
+AND I.index_id = IC.index_id 
+JOIN sys.columns C
+ON I.object_id = C.object_id 
+AND IC.column_id = C.column_id  
+JOIN SYS.tables T
+ON t.object_id = I.object_id 
+AND T.type = 'U'
+),
+IndexDetails_1 AS
+(
+SELECT 
+	TableName
+	, IndexName
+	, Index_Type
+	, Unique_Type
+	, PrimaryKey
+	, UniqueConstraint
+	, FilterIndex
+	, [FilterDefinition]
+	, [Disabled]
+	,(
+		SELECT  ', ' + '['+ ColumnName + CASE WHEN is_descending_key = 1 THEN 'DSC' ELSE '' END + ']' 
+		FROM IndexDetails_0 ID0
+		WHERE ID0.TableName = ID.TableName 
+		AND ID0.IndexName = ID.IndexName 
+		AND ID0.is_included_column = 0 
+		ORDER BY ID0.key_ordinal 
+		FOR XML PATH ('')
+	 )ColumnList
+	,(
+		SELECT  ', ' + '['+ ColumnName + ']' 
+		FROM IndexDetails_0 ID0
+		WHERE ID0.TableName = ID.TableName 
+		AND ID0.IndexName = ID.IndexName 
+		AND ID0.is_included_column = 1
+		ORDER BY ID0.key_ordinal 
+		FOR XML PATH ('')
+	)IncludeColumnList
+FROM IndexDetails_0 ID 
+)
+
+SELECT DISTINCT TableName
+	, IndexName
+	, SUBSTRING (ColumnList, 3, LEN(ColumnList))ColumnList
+	, SUBSTRING (IncludeColumnList, 3, LEN(IncludeColumnList))IncludeColumnList
+	, Index_Type
+	, Unique_Type
+	, PrimaryKey
+	, UniqueConstraint
+	, FilterIndex
+	, [FilterDefinition]
+	, [Disabled]
+FROM IndexDetails_1
+
+
+
+

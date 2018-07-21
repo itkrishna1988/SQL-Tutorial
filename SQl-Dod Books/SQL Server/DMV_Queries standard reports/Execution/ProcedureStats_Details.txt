@@ -1,0 +1,35 @@
+SELECT 
+	DB_NAME (PS.database_id) DBName -- Databasename
+	, OBJECT_NAME (PS.object_id) ObjectName -- Objectname
+	, ST.text SQLtext
+	, (PS.total_elapsed_time / 	PS.execution_count) 'AVG Elapsed Time'
+	, (PS.total_Worker_time / 	PS.execution_count) 'AVG CPU Time'
+	, PL.query_plan 
+	, PS.execution_count -- No of time the query executed
+	, PS.total_elapsed_time
+	, PS.total_worker_time -- CPU time ony
+	, PS.total_physical_reads
+	, PS.total_logical_reads
+	, PS.total_logical_writes
+	, PS.last_elapsed_time -- total Execution time including CPU
+	, PS.last_worker_time
+	, PS.last_physical_reads
+	, PS.last_logical_reads
+	, PS.last_logical_writes
+	, PS.max_elapsed_time
+	, PS.max_worker_time
+	, PS.max_physical_reads
+	, PS.max_logical_reads
+	, PS.max_logical_writes
+	, PS.min_elapsed_time
+	, PS.min_worker_time
+	, PS.min_physical_reads
+	, PS.min_logical_reads
+	, PS.min_logical_writes
+	, PS.last_execution_time 
+	, PS.cached_time
+FROM sys.dm_exec_procedure_stats PS
+CROSS APPLY sys.dm_exec_sql_text (PS.sql_handle)ST
+CROSS APPLY sys.dm_exec_query_plan(PS.plan_handle) PL
+WHERE st.objectid = object_id('test_p1')
+ORDER BY 7 DESC

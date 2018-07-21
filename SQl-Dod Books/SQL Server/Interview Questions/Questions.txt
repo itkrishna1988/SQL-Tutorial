@@ -1,0 +1,18 @@
+what data type you would use to store large video files (> 4 GB)
+which dmv tells you about the columns that should be included in an index
+
+what happens if you run this query?
+SELECT item_name, strength, cost,
+  RANK() OVER (PARTITION BY strength) AS 'ranks',
+  DENSE_RANK() OVER (ORDER BY strength) as 'Strength Ranks'
+FROM materials
+ORDER BY item_name;
+
+
+what happens if you run this query?
+sp_addmessage 55000, 15, 'user defined error message' 
+RAISERROR(55000, 5, 1)
+SELECT @@ERROR 
+
+
+output - 0

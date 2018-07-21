@@ -1,0 +1,19 @@
+SELECT 
+	DB_NAME(database_id) DatabaseName
+	, OBJECT_NAME(IUS.object_id) TableName
+	, I.name IndexName
+	, user_seeks 
+	, user_scans 
+	, user_lookups 
+	, user_updates -- No of insert, delete and updates
+	, last_user_seek 
+	, last_user_scan 
+	, last_user_lookup 
+	, last_user_update  
+FROM sys.dm_db_index_usage_stats IUS
+JOIN sys.indexes I
+ON IUS.object_id = I.object_id
+AND IUS.index_id = I.index_id
+JOIN sys.tables T
+ON T.object_id = I.object_id
+AND T.type = 'U'
