@@ -1,0 +1,45 @@
+CREATE TABLE Students (LastName  VARCHAR(50), 
+                       FirstName VARCHAR(50), 
+                       Address   VARCHAR(100), 
+                       Age       INT);
+INSERT INTO Students 
+   VALUES ('Fritz', 'David', '181 Kline Street',   14) 
+         ,('Reese', 'Paul' , '4429 South Union',   14)
+         ,('Brown', 'Jake' , '5401 Washington Ave',14);
+
+
+CREATE TABLE NewYearRoster(LastName  VARCHAR(50), 
+                           FirstName VARCHAR(50), 
+                           Address   VARCHAR(100), 
+                           Age       INT);
+INSERT INTO NewYearRoster 
+   VALUES ('Fritz', 'David',   '181 Kline Street',     15) 
+         ,('Reese', 'Paul',    '1950 Grandview Place', 15)
+         ,('Adam',  'Wilbur',  '4231 W. 93rd',         15);
+
+select * from NewYearRoster
+
+select * from Students
+
+
+MERGE Students AS T 
+USING  NewYearRoster AS S
+ON S.LastName = T. LastName and
+   S.FirstName = T.FirstName  
+WHEN MATCHED THEN
+  UPDATE SET T.Address = S.Address,
+             T.Age = S.Age
+WHEN NOT MATCHED THEN
+  INSERT (LastName, 
+          FirstName, 
+          Address, 
+          Age) 
+          VALUES (S.LastName, 
+          S.FirstName, 
+          S.Address, 
+          S.Age) 
+WHEN NOT MATCHED BY SOURCE THEN 
+  DELETE;
+
+
+select * from Students

@@ -1,0 +1,44 @@
+DECLARE @Source TABLE
+        (
+            a INT,
+            b INT
+        )
+ 
+INSERT  @Source
+SELECT  11, 21 UNION ALL
+SELECT  12, 22
+ 
+DECLARE @PrimaryTarget TABLE
+        (
+            a INT
+        )
+ 
+DECLARE @SecondaryTarget TABLE
+        (
+            b INT
+        )
+ 
+MERGE   @PrimaryTarget AS pt
+USING   @Source AS s ON 1 = 1
+WHEN    NOT MATCHED BY TARGET
+        THEN    INSERT  (
+                            a
+                        )
+                VALUES  (
+                            s.a
+                        )
+OUTPUT  s.b
+INTO    @SecondaryTarget;
+ 
+SELECT  'Source' AS TableName,
+        a,
+        b
+FROM    @Source
+ 
+SELECT  'PrimaryTarget' AS TableName,
+        a
+FROM    @PrimaryTarget
+ 
+SELECT  'SecondaryTarget' AS TableName,
+        b
+FROM    @SecondaryTarget

@@ -1,0 +1,8 @@
+create table StudentDetails
+(
+ roll_no int,
+ name varchar(30),
+ address varchar(30)
+)
+
+insert into StudentDetails values ('a','Ani','10,Downing Street')

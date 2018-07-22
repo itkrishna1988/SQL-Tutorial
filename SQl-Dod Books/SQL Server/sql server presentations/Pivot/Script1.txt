@@ -1,0 +1,38 @@
+Create database DB_Pivot
+
+
+--Query for creating table:
+
+Create table tbl_student (studentname nvarchar(200), grade nvarchar(10), marks int)
+
+
+--Query for inserting the data into the table
+
+Insert into tbl_student (studentname,grade,marks)
+Select 'Vivek Johari','I',30
+Union All
+Select 'Vivek Johari','II',20
+Union All
+Select 'Vivek Johari','III',35
+Union All
+Select 'Vivek Johari','IV',40
+Union All
+Select 'Vivek Johari','V',45
+Union All
+Select 'Avinash Dubey','I',30
+Union All
+Select 'Avinash Dubey', 'II', 2
+Union All
+Select 'Avinash Dubey', 'III' ,35
+Union All
+Select 'Chandra Singh', 'I', 30
+Union All
+Select 'Chandra Singh', 'II', 20
+Union All
+Select 'Chandra Singh', 'III', 35
+Union All
+Select  ' Pankaj Kumar', 'I', 33
+Union All
+Select ' Pankaj Kumar', 'II', 29
+
+select * from tbl_student 

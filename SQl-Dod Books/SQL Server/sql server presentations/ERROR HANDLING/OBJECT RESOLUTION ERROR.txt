@@ -1,0 +1,21 @@
+
+--OBJECT RESOLUTION ERROR
+
+
+BEGIN TRY
+    -- This PRINT statement will run because the error
+    -- occurs at the SELECT statement.
+    PRINT N'Starting execution';
+
+    -- This SELECT statement will generate an object name
+    -- resolution error because the table does not exist.
+    SELECT * FROM NonExistentTable;
+END TRY
+BEGIN CATCH
+    SELECT 
+        ERROR_NUMBER() AS ErrorNumber,
+        ERROR_MESSAGE() AS ErrorMessage;
+END CATCH;
+GO
+
+

@@ -1,0 +1,46 @@
+
+
+--Numeric Datatypes
+
+
+CREATE TABLE datatype_dod(
+                 id1 bigint
+                 , id2 int 
+                    ,id3 smallint 
+                       ,id4 tinyint 
+                          , id5 bit 
+                             , id6 decimal 
+                                  , id7 numeric)
+
+
+
+     sp_help 'dbo.datatype_dod'
+------------------------------------------------------------------------
+
+
+---Money Dataypes
+
+
+
+CREATE TABLE datatype_3(rupee1 smallmoney, rupee2 money)
+
+sp_help 'datatype_3'
+
+
+------------------------------------------------------------------------
+
+--Date
+
+
+CREATE TABLE datatype_5( date1 datetime 
+				, date2 smalldatetime 
+					,date3 date 
+					, date4 datetimeoffset
+					 , date5 datetime2
+ 					    , date6 time)
+
+
+
+   sp_help 'datatype_5'
+
+

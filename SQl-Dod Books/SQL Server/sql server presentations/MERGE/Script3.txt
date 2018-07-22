@@ -1,0 +1,21 @@
+MERGE Students AS T 
+USING NewYearRoster AS S
+ON S.LastName = T. LastName and
+   S.FirstName = T.FirstName  
+WHEN MATCHED THEN
+  UPDATE SET T.Address = S.Address,
+             T.Age = S.Age
+WHEN NOT MATCHED THEN
+  INSERT (LastName, 
+          FirstName, 
+          Address, 
+          Age) 
+          VALUES (S.LastName, 
+          S.FirstName, 
+          S.Address, 
+          S.Age) 
+WHEN NOT MATCHED BY SOURCE THEN 
+  DELETE
+OUTPUT $action
+, Inserted.LastName, Inserted.FirstName
+, Deleted.LastName, Deleted.FirstName;

@@ -1,0 +1,21 @@
+Create table tbl_stdmarksdata  (studentname nvarchar(100), I int, II int, III int, IV int, V int)
+
+--Query for inserting data in this table is given below
+
+Insert into tbl_stdmarksdata (studentname,I,II,III,IV,V)
+Select 'Vivek Johari',30,20,35, 40, 45
+Union All
+Select 'Chandra Singh',30,20,35,44, 80
+Union All
+Select 'Avinash Dubey',30,25,35,20, 39
+Union All
+Select 'Pankaj Kumar',33,29,30, 60, 50
+
+---After insert,  the data in the table 
+
+select * from tbl_stdmarksdata 
+
+select studentname,Marks,Grade
+from tbl_stdmarksdata
+unpivot
+(Marks for Grade in (I,II,III,IV,V) ) as tblunpvt

@@ -1,0 +1,85 @@
+-----------------------------------------------------------------------------
+--Read Uncommited
+--Query2
+
+--SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT * FROM IsolationTests
+-----------------------------------------------------------------------------
+--read Committed
+--Query2
+
+SELECT * FROM IsolationTests
+
+--showing non repeatbale read
+begin tran
+	select * from mytab
+	--insert into mytab(id,variable) values(4,'y')
+	update mytab set variable='c' where id=2
+	select * from mytab
+commit tran
+
+--showing phantom read
+begin tran
+	select * from mytab
+	insert into mytab(id,variable) values(4,'y')
+	--update mytab set variable='c' where id=2
+	select * from mytab
+commit tran
+
+-----------------------------------------------------------------------------
+--reapeatable read
+--Query2
+
+UPDATE IsolationTests SET Col1 = -1
+
+---new rows------showing phantom read
+begin tran
+	select * from mytab
+	insert into mytab(id,variable) values(3,'z')
+	--update mytab set variable='d' where id=2
+	select * from mytab
+commit tran
+-----------------------------------------------------------------------------
+--serializable
+--Query2
+
+INSERT INTO IsolationTests(Col1,Col2,Col3)
+VALUES (100,100,100)
+-----------------------------------------------------------------------------
+--snapshot
+
+ALTER DATABASE IsolationTests
+SET ALLOW_SNAPSHOT_ISOLATION ON
+--select * from IsolationTests
+BEGIN TRAN
+update IsolationTests set Col1=10 where Id=8
+WAITFOR DELAY '00:00:15'
+COMMIT TRAN
+
+-------------------------------------------------------
+--Lost Update
+--Query 2
+BEGIN TRAN
+SELECT * FROM IsolationTests
+update IsolationTests set Col1=10 where Id=7
+SELECT * FROM IsolationTests
+--WAITFOR DELAY '00:00:10'
+COMMIT TRAN
+SELECT * FROM IsolationTests
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+--SNAPSHOT Alternative
+--Query2
+update IsolationTests set Col1=150 where Id=7
+
+--Query3
+set transaction isolation level snapshot
+begin transaction
+	select * from isolationtests
+	update IsolationTests set Col1=199 where Id=7
+	--waitfor delay '00:00:10'
+	select * from IsolationTests
+commit transaction
+

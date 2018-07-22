@@ -1,0 +1,139 @@
+CREATE TABLE IsolationTests
+(
+    Id INT IDENTITY,
+    Col1 INT,
+    Col2 INT,
+    Col3 INT
+)
+CREATE TABLE mytab
+(
+	id int,
+	variable varchar(10)
+)	
+ 
+--Insert data
+INSERT INTO IsolationTests(Col1,Col2,Col3)
+SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+
+INSERT INTO mytab(id,variable)
+SELECT 1,'a'
+UNION ALL SELECT 2,'b'
+UNION ALL SELECT 3,'c'
+UNION ALL SELECT 4,'d'
+
+-----------------------------------------------------------------------------
+--Read Uncommited
+--Query1
+
+BEGIN TRAN
+UPDATE IsolationTests SET Col1 = 100
+--Simulate having some intensive processing here with a wait
+WAITFOR DELAY '00:00:10'
+ROLLBACK
+SELECT * FROM IsolationTests
+-----------------------------------------------------------------------------
+--read Committed
+--Query1
+
+BEGIN TRAN
+UPDATE IsolationTests SET Col1 = 2
+--Simulate having some intensive processing here with a wait
+WAITFOR DELAY '00:00:10'
+ROLLBACK
+SELECT * FROM IsolationTests
+--DBCC useroptions
+
+---Showing non repeatable read
+set transaction isolation level read committed
+begin tran
+	select * from mytab
+	--update mytab set variable='c' where id=2
+	waitfor delay '00:00:09'
+	select * from mytab
+commit tran
+
+--showing phantom read
+set transaction isolation level read committed
+begin tran
+	select * from mytab
+	--update mytab set variable='c' where id=2
+	waitfor delay '00:00:09'
+	select * from mytab
+commit tran
+
+-----------------------------------------------------------------------------
+--reapeatable read
+-----Query1
+
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+BEGIN TRAN
+SELECT * FROM IsolationTests
+WAITFOR DELAY '00:00:10'
+SELECT * FROM IsolationTests
+ROLLBACK
+SELECT * FROM IsolationTests
+
+--new rows------------(Phantom read)
+set transaction isolation level repeatable read
+begin tran
+	select * from mytab
+	--update mytab set variable='c' where id=2
+	waitfor delay '00:00:05'
+	select * from mytab
+commit tran
+
+-----------------------------------------------------------------------------
+--serializable
+-----query1
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+BEGIN TRAN
+SELECT * FROM IsolationTests
+WAITFOR DELAY '00:00:10'
+SELECT * FROM IsolationTests
+ROLLBACK
+SELECT * FROM IsolationTests
+-----------------------------------------------------------------------------
+--snapshot
+
+ALTER DATABASE IsolationTests
+SET ALLOW_SNAPSHOT_ISOLATION ON
+--select * from IsolationTests
+BEGIN TRAN
+update IsolationTests set Col1=10 where Id=8
+WAITFOR DELAY '00:00:10'
+COMMIT TRAN
+
+SELECT * FROM IsolationTests
+--------------------------------------------------------------------
+--Lost update
+--Query1
+BEGIN TRAN
+SELECT * FROM IsolationTests
+update IsolationTests set Col1=20 where Id=7
+SELECT * FROM IsolationTests
+WAITFOR DELAY '00:00:10'
+COMMIT TRAN
+
+DBCC useroptions
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+--SNAPSHOT Alternative
+--Query1 for snapshot isolation
+alter database master
+set allow_snapshot_isolation on
+	
+set transaction isolation level snapshot
+begin transaction
+	select * from isolationtests
+	update IsolationTests set Col1=99 where Id=7
+	waitfor delay '00:00:10'
+	select * from IsolationTests
+commit transaction

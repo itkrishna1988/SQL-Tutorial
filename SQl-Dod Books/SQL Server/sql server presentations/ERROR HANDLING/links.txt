@@ -1,0 +1,1 @@
+http://www.codeproject.com/Articles/38650/Overview-of-Error-Handling-in-SQL-Server-2005

@@ -1,0 +1,15 @@
+BEGIN TRY
+    -- This PRINT statement will not run because the batch
+    -- does not begin execution.
+    PRINT N'Starting execution';
+
+    -- This SELECT statement contains a syntax error that
+    -- stops the batch from compiling successfully.
+    SELECT ** FROM HumanResources.Employee;
+END TRY
+BEGIN CATCH
+    SELECT 
+        ERROR_NUMBER() AS ErrorNumber,
+        ERROR_MESSAGE() AS ErrorMessage;
+END CATCH;
+GO

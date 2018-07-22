@@ -1,0 +1,71 @@
+CREATE TABLE Person
+   (
+    SSN         char(11) PRIMARY KEY,
+    Name        nvarchar(100),
+    Address     nvarchar(100),
+    Birthdate   datetime
+   )
+
+CREATE TABLE EmployeeTable
+   (
+    EmployeeID       int PRIMARY KEY,
+    SSN              char(11) UNIQUE,
+    Department       nvarchar(10),
+    Salary           money,
+    CONSTRAINT FKEmpPer FOREIGN KEY (SSN)
+    REFERENCES Person (SSN)
+   )
+
+
+CREATE VIEW Employee AS
+SELECT P.SSN as SSN, Name, Address,
+       Birthdate, EmployeeID, Department, Salary
+FROM Person P, EmployeeTable E
+WHERE P.SSN = E.SSN
+
+
+CREATE TABLE PersonDuplicates
+   (
+    SSN           char(11),
+    Name          nvarchar(100),
+    Address       nvarchar(100),
+    Birthdate     datetime,
+    InsertSNAME   nchar(100),
+    WhenInserted  datetime
+   )
+
+
+CREATE TRIGGER IO_Trig_INS_Employee ON Employee
+INSTEAD OF INSERT
+AS
+BEGIN
+SET NOCOUNT ON
+-- Check for duplicate Person. If there is no duplicate, do an insert.
+IF (NOT EXISTS (SELECT P.SSN
+      FROM Person P, inserted I
+      WHERE P.SSN = I.SSN))
+   INSERT INTO Person
+      SELECT SSN,Name,Address,Birthdate
+      FROM inserted
+ELSE
+-- Log an attempt to insert duplicate Person row in PersonDuplicates table.
+   INSERT INTO PersonDuplicates
+      SELECT SSN,Name,Address,Birthdate,SUSER_SNAME(),GETDATE()
+      FROM inserted
+-- Check for duplicate Employee. If no there is duplicate, do an INSERT.
+IF (NOT EXISTS (SELECT E.SSN
+      FROM EmployeeTable E, inserted
+      WHERE E.SSN = inserted.SSN))
+   INSERT INTO EmployeeTable
+      SELECT EmployeeID,SSN, Department, Salary
+      FROM inserted
+ELSE
+--If there is a duplicate, change to UPDATE so that there will not
+--be a duplicate key violation error.
+   UPDATE EmployeeTable
+      SET EmployeeID = I.EmployeeID,
+          Department = I.Department,
+          Salary = I.Salary
+   FROM EmployeeTable E, inserted I
+   WHERE E.SSN = I.SSN
+END

@@ -1,0 +1,29 @@
+--Using Lock hints we are acquiring a row lock on the specific set of rows..
+begin tran
+	update Lock_Test with (rowlock)
+	set name='harry'
+	where id=2
+commit tran	
+
+SELECT * FROM Lock_test
+
+-------------------------------------------
+
+--Lock Hints
+begin tran
+select * from Lock_test
+	
+commit tran
+
+-------------------------------------------
+
+--Exclusive lock
+
+begin tran
+	select * from Lock_Test with(HOLDLOCK)
+	Update Lock_Test set name='Harry' where id=2
+	
+commit tran
+
+------------------------------------------
+

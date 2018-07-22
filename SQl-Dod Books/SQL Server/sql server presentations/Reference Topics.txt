@@ -1,0 +1,28 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------
+http://msdn.microsoft.com/en-us/library/dd207003.aspx -- Rebuild system databases
+http://support.microsoft.com/kb/224453
+http://www.simple-talk.com/sql/sql-tools/how-to-identify-blocking-problems-with-sql-profiler/
+http://blogs.technet.com/b/rob/archive/2008/05/26/detecting-sql-server-2005-blocking.aspx
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--Temptables vs table varibles.
+------------------------------
+http://www.codeproject.com/Articles/18972/Temporary-Tables-vs-Table-Variables-and-Their-Effe
+deadlock
+http://www.simple-talk.com/sql/database-administration/handling-deadlocks-in-sql-server/
+----------------------------------------------------------------------------------------------------------------------------------------------------
+http://www.sqlteam.com/article/transaction-isolation-and-the-new-snapshot-isolation-level
+----------------------------------------------------------------------------------------------------------------------------------------------------
+http://www.mssqltips.com/sqlservertip/1036/finding-and-troubleshooting-sql-server-deadlocks/
+http://sqlserverplanet.com/sql-optimization/understanding-sql-server-deadlocks
+http://blogs.msdn.com/b/bartd/archive/2006/09/25/deadlock-troubleshooting-part-3.aspx
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--Interpreting deadlock graph
+-----------------------------
+http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-components-postattachments/00-00-74-71-19/SQL2000_5F00_Deadlocks_5F00_T1204.htm
+http://blogs.msdn.com/b/bartd/archive/2006/09/09/747119.aspx -- part 1
+http://blogs.msdn.com/b/bartd/archive/2006/09/13/751343.aspx --part2
+http://blogs.msdn.com/b/bartd/archive/2006/09/25/deadlock-troubleshooting-part-3.aspx -- part 3
+----------------------------------------------------------------------------------------------------------------------------------------------------
+http://sqlinthewild.co.za/index.php/2010/10/12/a-trio-of-table-variables/
+http://sankarreddy.com/2010/10/invitation-to-participate-in-t-sql-tuesday-11-misconceptions-in-sql-server/
+----------------------------------------------------------------------------------------------------------------------------------------------------

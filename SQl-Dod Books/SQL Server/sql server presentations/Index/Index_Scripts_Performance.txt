@@ -1,0 +1,57 @@
+create table My_Sample_Table1
+(
+	id1 int,
+	date_time1 datetime
+)
+create table My_Sample_Table2
+(
+	id2 int primary key,
+	date_time2 datetime
+)
+
+--procedure to populate data
+
+alter procedure Populate_Data @count int
+as
+begin
+	declare @i int
+	set @i = 1
+	while(@i<=@count)
+	begin
+		insert into My_Sample_Table2(id2,date_time2) values(@i,GETDATE()+@i)
+		set @i = @i + 1
+	end
+end
+
+exec Populate_Data 291278
+
+
+--To get the number of scans, logical reads, physical reads etc.
+set statistics io on
+
+--Using DMV to get the number of user_seeks,user_scans, user_lookups
+SELECT object_name(object_id) as name, index_id, user_seeks, user_scans, user_lookups FROM sys.dm_db_index_usage_stats where object_name(object_id) like 'My_%'
+
+--------------------------------
+--CASE 1
+--------------------------------
+
+select * from My_Sample_Table1 where id1=12541
+select * from My_Sample_Table2 where id2=12541
+SELECT object_name(object_id) as name, index_id, user_seeks, user_scans, user_lookups FROM sys.dm_db_index_usage_stats where object_name(object_id) like 'My_%'
+
+--------------------------------
+
+--Altering Table 2 for shwing User lookup
+alter table My_Sample_table2 add descr varchar(20),comments varchar(30)
+update My_Sample_Table2 set descr='description'
+
+
+--creating a non clustered index
+create nonclustered index nci_MST2_date_time2 on My_Sample_table2(date_time2)
+
+
+
+--Lookup
+select id2,descr from My_Sample_Table2 where date_time2='2013-03-15 13:36:55.690'
+SELECT object_name(object_id) as name, index_id, user_seeks, user_scans, user_lookups FROM sys.dm_db_index_usage_stats where object_name(object_id) like 'My_%'

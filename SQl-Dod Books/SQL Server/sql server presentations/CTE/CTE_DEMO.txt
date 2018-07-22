@@ -1,0 +1,27 @@
+create table SalesOrder(CustomerID int,OrderDate date)
+
+insert SalesOrder select 2,'12-mar-2012'
+insert SalesOrder select 1,'8-jan-2012'
+insert SalesOrder select 30,'23-nov-2012'
+
+select * from SalesOrder
+
+
+with cte (RowNumber,OrderDate,CustomerID)
+as
+(Select ROW_NUMBER() over (Order by OrderDate) as RowNumber,OrderDate,CustomerID
+From SalesOrder)
+select *from cte  Where RowNumber between 1 and 10
+
+
+with cte (RowNumber,OrderDate,CustomerID)
+as
+(Select Rank() over (Order by OrderDate) as RowNumber,OrderDate,CustomerID
+From SalesOrder)
+select *from cte  Where RowNumber between 1 and 10
+
+Select Rank() over (Order by OrderDate) as r,OrderDate,CustomerID
+From SalesOrder Where r between 1 and 10
+
+select ROW_NUMBER() over (Order by OrderDate) as RowNumber,OrderDate,CustomerID
+From SalesOrder Where RowNumber between 1 and 10

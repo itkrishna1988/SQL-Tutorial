@@ -1,0 +1,26 @@
+Enhancements
+------------------
+Availability Enhancements
+	1. Alwayson Availability Group
+		Multiple dbs can be failed over as a single unit; 
+		Supports upto 4 secondary replicas; 
+		Out of 4, 2 can be configured as synchronous for high availability
+	2. Support for Windows server core (This OS is the scaled down version of Windows OS. This requires 50% fewer reboots)
+	3. Recovery Advisor - timeline introduced in recovery process to facilitate point-in-time recovery
+
+Managebility Enhancements
+	1. Contained Databases
+	2. Insert Code snipets - Ctrl KX 
+	3. Number of Resource Pools in Resource Governor is 64 (earlier 20)
+	4. Startup parameters relocated; config mgr -> sql server instance (right click) -> properties
+
+Scalability & Perf Enhancements
+	1. Online Index Create/Drop/Rebuild for varchar(max), nvarchar(max), varbinary(max)
+	2. Upto 15000 Partitions are supported on a table (earlier 1000)
+	3. Supports 256 logical processors and 2 TB of memory
+	4. Column-Store indexes
+
+Programmability Enhancements
+	1. FileTable
+	2. Semantic Search - to search words & meaning in a document using rowset functions
+	3. 

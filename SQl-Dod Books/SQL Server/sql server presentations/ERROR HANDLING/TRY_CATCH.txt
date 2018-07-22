@@ -1,0 +1,10 @@
+
+--example for Try-Catch
+
+BEGIN TRY
+     INSERT INTO StudentDetails(roll_no, name)
+     VALUES('a', 'Ani')
+END TRY
+BEGIN CATCH
+   SELECT 'There was an error while  Inserting records in DB '
+END CATCH

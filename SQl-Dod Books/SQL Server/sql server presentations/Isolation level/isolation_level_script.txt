@@ -1,0 +1,84 @@
+CREATE TABLE IsolationTests
+(
+    Id INT IDENTITY,
+    Col1 INT,
+    Col2 INT,
+    Col3 INT
+)
+
+ 
+--Insert data
+
+INSERT INTO IsolationTests(Col1,Col2,Col3)
+SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+UNION ALL SELECT 1,2,3
+
+--Read Uncommited
+
+--Query1
+
+BEGIN TRAN
+UPDATE Tests SET Col1 = 2
+--Simulate having some intensive processing here with a wait
+WAITFOR DELAY '00:00:10'
+ROLLBACK
+--Query2
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT * FROM IsolationTests
+
+--read Committed
+
+--Query1
+
+BEGIN TRAN
+UPDATE Tests SET Col1 = 2
+--Simulate having some intensive processing here with a wait
+WAITFOR DELAY '00:00:10'
+ROLLBACK
+--Query2
+
+SELECT * FROM IsolationTests
+
+
+--reapeatable read
+
+-----Query1
+
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+BEGIN TRAN
+SELECT * FROM IsolationTests
+WAITFOR DELAY '00:00:10'
+SELECT * FROM IsolationTests
+ROLLBACK
+
+-----Query2
+
+UPDATE IsolationTests SET Col1 = -1
+
+--serializable
+
+-----query1
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+BEGIN TRAN
+SELECT * FROM IsolationTests
+WAITFOR DELAY '00:00:10'
+SELECT * FROM IsolationTests
+ROLLBACK
+
+-------Query2
+
+INSERT INTO IsolationTests(Col1,Col2,Col3)
+VALUES (100,100,100)
+
+--snapshot
+
+ALTER DATABASE IsolationTests
+SET ALLOW_SNAPSHOT_ISOLATION ON
+

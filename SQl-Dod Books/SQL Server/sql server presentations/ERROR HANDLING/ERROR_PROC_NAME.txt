@@ -1,0 +1,31 @@
+
+
+
+--- DISPLAYING THE ERROR PROCEDURE NAME
+
+
+IF OBJECT_ID ('usp_MyError', 'P') IS NOT NULL
+    DROP PROCEDURE usp_MyError;
+GO
+
+
+
+CREATE PROCEDURE usp_MyError
+AS
+    -- This SELECT statement will generate
+    -- an object name resolution error.
+    SELECT * FROM NonExistentTable;
+GO
+
+BEGIN TRY
+    -- Run the stored procedure.
+    EXECUTE usp_MyError;
+END TRY
+BEGIN CATCH
+    SELECT 
+        ERROR_NUMBER() AS ErrorNumber,
+        ERROR_MESSAGE() AS ErrorMessage,
+        ERROR_PROCEDURE() AS ErrorProcedure;
+END CATCH;
+GO
+

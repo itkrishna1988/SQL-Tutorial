@@ -1,0 +1,27 @@
+SET NOCOUNT ON;
+
+-- Create Target Table 
+CREATE TABLE Customers (LastName VARCHAR(50), FirstName VARCHAR(50));
+INSERT INTO Customers VALUES ('Doe', 'Jane');
+
+
+-- Create Source Table  
+CREATE TABLE NewCustomers(LastName VARCHAR(50), FirstName VARCHAR(50));
+INSERT INTO NewCustomers VALUES ('Doe', 'John');
+INSERT INTO NewCustomers VALUES ('Smith', 'Doris');
+
+select * from NewCustomers
+
+select * from Customers
+
+-- Update and Insert into Customers
+MERGE Customers AS C
+USING NewCustomers AS NC
+ON C.LastName = NC. LastName
+WHEN MATCHED THEN
+  UPDATE SET C.FirstName = NC.FirstName
+WHEN NOT MATCHED THEN
+  INSERT (LastName, FirstName) VALUES (NC.LastName,NC.FirstName);
+
+
+select * from Customers

@@ -1,0 +1,38 @@
+create table T (a int, b int, c int, d int, x char(200))
+create unique clustered index Ta on T(a)
+create index Tb on T(b)
+--create index Tb on T(b) include (c,d)
+--create index Tcd on T(c, d) 
+--create index Tdc on T(d, c)
+---drop index T.Tb
+
+insert into T values(1,2,23,24,'hey')
+insert into T values(2,5,22,25,'good')
+insert into T values(3,6,21,26,'nice')
+insert into T values(4,7,20,27,'best')
+insert into T values(5,8,19,28,'great')
+insert into T values(6,9,18,29,'awesome')
+insert into T values(7,10,17,30,'splendid')
+insert into T values(8,11,16,31,'excellent')
+insert into T values(9,12,15,32,'amazing')
+insert into T values(10,13,14,33,'fantastic')
+
+select a from T
+
+select a,b from T 
+
+select a from T where a=10 
+
+select a from T where b=10
+
+select c,d from T where c=33 ------
+
+select c,d from T where b=6
+
+select b from T where c=33
+
+select c,d from T where c>1
+
+select c,d from T
+
+select c,d from T where b>1

@@ -1,0 +1,47 @@
+create table Lock_Test
+(
+	id int,
+	name varchar(20)
+)
+
+insert into Lock_Test values(1,'Prabhu'),(2,'hari'),(3,'Ram'),(4,'Murali'),(5,'Kat')
+
+--Lock Hints
+begin tran
+	select name from Lock_Test
+	--with(NOLOCK)
+	where id between 1 and 3
+	
+commit tran
+
+--------------------------------------
+
+--Update Lock converting to an X lock upon modification
+begin tran
+	select name from Lock_Test with(UPDLOCK) where id between 1 and 3
+	--update Lock_Test set name='harry' where id=2
+
+commit tran
+
+--------------------------------------
+
+--Exclusive lock
+
+begin tran
+	select * from Lock_Test with(HOLDLOCK)
+	Update Lock_Test with(XLOCK) set name='HARRY' where id=2
+	
+commit tran
+
+---------------------------------------
+exec sp_lock
+--------
+SELECT *
+FROM   sys.dm_tran_locks
+--------
+select * from sys.sysprocesses
+where blocked>0
+--------
+exec sp_who
+exec sp_who2
+

@@ -1,0 +1,17 @@
+CREATE PROCEDURE usp_MyError
+AS
+    
+    SELECT * FROM NonExistentTable;
+GO
+
+BEGIN TRY
+    -- Run the stored procedure.
+    EXECUTE usp_MyError;
+END TRY
+BEGIN CATCH
+    SELECT 
+        ERROR_NUMBER() AS ErrorNumber,
+        ERROR_MESSAGE() AS ErrorMessage;
+END CATCH;
+GO
+
