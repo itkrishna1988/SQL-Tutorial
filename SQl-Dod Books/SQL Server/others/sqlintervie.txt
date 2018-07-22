@@ -1,0 +1,305 @@
+Count: count(Column name) Returns no of records exclude null values
+Count(*): returns Total no of records in a table
+
+2.How can u get the number of peoples connecting the database?
+select db_name(dbid) as dbname,count(dbid) as connections from sys.sysprocesses  group by dbid
+
+3.2.How can u get the number of peoples connecting the database and what machine?
+select db_name(dbid) as dbname,count(dbid) as connections,hostname from sys.sysprocesses  group by dbid,hostname
+
+4.What is schema in DataBase?
+Schema is a logical set of data. It contains tables, views, Packages, constraints. This is treated as a whole database.
+This has assigned with a unique id called as SID i.e. System ID. Because of this ID one can create n number of 
+DBs on a single DB server. Obviously within the limit of the hardware of DB server.
+
+5.how to write the query to select the rows are in the order of either 1,3,5,7... or 2,4,6,8,...?
+SELECT ROWID=IDENTITY(int,1,1) , EMPID, FNAME, LNAME 
+INTO EMPLOYEE2 FROM EMPLOYEE ORDER BY EMPID
+select * from EMPLOYEE2 where ROWID%2=1
+
+select distinct  * from EMPLOYEE where empid in
+(SELECT case when ROW_NUMBER() OVER (ORDER BY EMPID ASC) %2=1 then empid else 0 end  as rowid FROM EMPLOYEE )
+
+
+6.update of 0 to 1 and 1 to 0 in a coumn
+update example set column1 = case when column1=0 then 1
+                                  when column1=1 then 0 end
+
+7.After using delete statement in sql query to delete some records...to retrieve the deleted records we can get
+ using rollback command but till that where it stores means particular location name i need....(after deleting and rollback)?
+ANS:  if we do delete using begin transaction, the deleted records will be stored in transaction log file. We cannot see it 		visually.
+
+8.I have a table in which phno is one of the columns.i do have some values in tht phno column.i need to update phno column values with 0(zero) as prefix.give me a correct solution plz...
+
+Ans: you didn't mention the datatype of the column "phone number" prob the varchar datatype has used to the phno.
+update <tablename> set phno = cast(0 as varchar(1)) + phno
+
+9.How can your resolve deadlocks?
+Ans:A deadlock occurs when two or more processes try to access a resource that another process has a lock on. Microsoft SQL Server automatically detects these deadlocks, terminates one of the processes,and rolls back any changes made by that process.The process chosen for termination will be the one with the least amount of active time on the server. In
+most cases, you can simply reissue the statements that were rolled back and should have no problems.
+
+Note: select * from information_schema.columns returns toatal coumns in a database as table wise
+select * from information_schema.columns where TABLE_NAME='tbl_User'
+
+10.What are statistics, under what circumstances they go out of date, how do you update them?
+
+ANS:Statistics determine the selectivity of the indexes. If an indexed column has unique values then the selectivity of 
+that index is more, as opposed to an index with non-unique values. Query optimizer uses these indexes in determining 
+whether to choose an index or not while executing a query. 
+Some situations under which you should update statistics:
+
+11.what is Covering Index ?
+
+12.Can I remove the default constraint columns in SQL SERVER?
+Ans:yes u can delete the default constraint. First find out the constraint name for the default and then execute the 
+following quey
+alter table <table-name> drop constraint <constraint-name>
+
+13.user defined datatypes?
+
+14.Which virtual table does a trigger use?or magic tables or pseudo tables?
+Ans: Inserted,Deleted
+
+15. hi, i have a table called names and field name select * from names name a b c d i want to display like this name a,b,c,d how it is possible Regards Baiju?
+
+Ans:CREATE TABLE Names (Name VARCHAR(50))
+GO
+INSERT Names
+SELECT 'A'
+UNION 
+SELECT 'B'
+UNION 
+SELECT 'C'
+UNION 
+SELECT 'D'
+
+select name from names for xml path('') statement returns bellow output 
+<name>A</name><name>B</name><name>C</name><name>D</name> for this we have elimenate both <name>,</name> tabs
+
+select replace(replace((select name from names for xml path('')),'<name>',''),'</name>',',')
+
+
+
+for sql 2k 
+create procedure loopcure
+as
+BEGIN
+declare @a int, @b  varchar(020), @l int, @c  varchar(020),
+@D  varchar(020)
+SET @D  = ''
+declare  loopcur cursor for select id from names 
+open loopcur
+fetch next from  loopcur into @b
+while @@fetch_status = 0
+begin
+select @C = LTRIM(RTRIM(@B)) + ',' 
+select @D = LTRIM(RTRIM(@D)) + LTRIM(RTRIM(@C)) 
+fetch next from  loopcur into @b
+end
+close loopcur
+deallocate loopcur
+select @d = left(@d,  len(@d)-1 )
+select @d as final
+END
+
+16.How many .ndf files can we create in Sql server 2005?
+ANS:	32766
+
+17.delete duplicate rows in a table without using a temporary table 
+Ans:	SET ROWCOUNT 1
+	DELETE yourtable FROM yourtable a
+	WHERE (SELECT COUNT(*) FROM yourtable b WHERE b.name1 = a.name1 AND b.age1 = a.age1) > 1
+	WHILE @@rowcount > 0
+        DELETE yourtable  FROM yourtable a   WHERE 
+	(SELECT COUNT(*) FROM yourtable b WHERE b.name1 = a.name1 AND b.age1 = a.age1) > 1
+SET ROWCOUNT 0 
+
+
+18.if I have a column (Key) in a table. and values of that column is Key 1 1 1 2 2 3 3 4 4 5 5 5 and we want to show the data after query..like.. 1(3) 2(3) 3(2) 4(2) 5(3) how many times a single term comes.. 
+Ans:
+	select convert(varchar(5),ex)+'('+convert(varchar(5),count(ex))+')' from example group by ex
+
+19.What is the datatype returned by count(*)?
+Ans: int
+
+20:How can you get @@error and @@rowcount at the same time?
+Ans:   select @@rowcount    it returns number of sql rows affeected on last sql statement
+       select @@error	     it returns 0 if last statemnet execute successfully else returns error number
+	if u run @@error after @@rowcount it throws 0 
+	if u run @@rowcount after @@error it throws 1
+
+21:event classes in sql server?
+
+22:There is a table1 with records (1,2,3,4,5,6) and table2 with records (4,5,6,7,8,9).write a query so as to get the result as 1,2,3,4,5,6,7,8,9
+Ans:	select * from table1
+	union
+	select * from table2
+22.what is extended StoreProcedure ?
+
+An extended stored procedure is simply a procedure that is
+implemented in a dynamic link library (DLL) — a library that
+is called by an application at runtime. Extended stored
+procedures can be used in much the same way as database
+stored procedures, except that extended stored procedures
+normally perform tasks related to the interaction of SQL
+Server with its operating environment. Tasks that are either
+too complicated or just not possible using Transact-SQL can
+often be performed with extended stored procedures.
+
+Extended stored procedures are written using the Open Data
+Services (ODS) API. ODS is written and supported by
+Microsoft and is available on the Workstation version of SQL
+Server and as a separate product (and in the Back-Office
+Development Kit). The ODS development package includes both
+a static-link library (Opends60.lib) and C header files that
+let you create fully functional database services. ODS
+applications are dynamically linked with Opends60.dll.
+   
+23.What purpose does the model database serve?
+ANs:The model database, as its name implies, serves as the model (or template) for all databases created on the same instance. If the model database is modified, all subsequent databases created on that instance will pick up those changes, but earlier created databases will not. Note that TEMPDB is also created from model every time SQL Server starts up.
+
+24.How do you trace the traffic hitting a SQL Server?
+Ans:SQL profiler is the SQL Server utility you can use to trace the traffic on the SQL Server instance. Traces can be filtered to narrow down the transactions that are captured and reducing the overhead incurred for the trace. The trace files can be searched, saved off, and even replayed to facilitate troubleshooting.
+
+
+25.What types of replication are supported in SQL Server?
+ANS:SQL Server has three types of replication: Snapshot, Merge, and Transaction. Snapshot replication creates a snapshot of the data (point-in-time picture of the data) to deliver to the subscribers. This is a good type to use when the data changes infrequently, there is a small amount of data to replicate, or large changes occur over a small period of time.
+
+Merge replication uses a snapshot to seed the replication. Changes on both sides of the publication are tracked so the subscriber can synchronize with the publisher when connected. A typical use for this type of replication is in a client and server scenario. A server would act as a central repository and multiple clients would independently update their copies of the data until connected. At which time, they would all send up their modifications to the central store.
+
+Transaction replication also begins with a snapshot only this time changes are tracked as transactions (as the name implies). Changes are replicated from publisher to subscriber the same as they occurred on the publisher, in the same order as they occurred, and in near real time. This type of replication is useful when the subscriber needs to know every change that occurred to the data (not point-in-time), when the change volume is high, and when the subscriber needs near real-time access to the changes.
+
+26.Why would you use SQL Agent?
+SQL Agent is the job scheduling mechanism in SQL Server. Jobs can be scheduled to run at a set time or when a specific event occurs. Jobs can also be executed on demand. SQL Agent is most often used to schedule administrative jobs such as backups.
+
+27What happens on checkpoint?
+Checkpoints, whether scheduled or manually executed, cause the transaction log to be truncated up to the beginning of the oldest open transaction (the active portion of the log). That is, the dirty pages from the buffer cache are written to disk. Storing committed transactions in the cache provides a performance gain for SQL Server. However, you do not want the transaction log to get too big because it might consume too many resources and, should your database fail, take too long to process to recover the database. 
+
+28.One important thing to note here is that SQL Server can only truncate up to the oldest open transaction. Therefore, if you are not seeing the expected relief from a checkpoint, it could very well be that someone forgot to commit or rollback their transaction. It is very important to finalize all transactions as soon as possible.
+
+29.What is DBCC?
+DBCC statements are Database Console Commands and come in four flavors: Maintenance, Informational, Validation, and Miscellaneous. Maintenance commands are those commands that allow the DBA to perform maintenance activities on the database such as shrinking a file. Informational commands provide feedback regarding the database such as providing information about the procedure cache. Validation commands include commands that validate the database such as the ever-popular CHECKDB. Finally, miscellaneous commands are those that obviously don't fit in the other three categories. This includes statements like DBCC HELP, which provides the syntax for a given DBCC command.
+
+30.How can you control the amount of free space in your index pages?
+You can set the fill factor on your indexes. This tells SQL Server how much free space to leave in the index pages when re-indexing. The performance benefit here is fewer page splits (where SQL Server has to copy rows from one index page to another to make room for an inserted row) because there is room for growth built in to the index.
+
+31.Why would you call Update Statistics?
+Update Statistics is used to force a recalculation of query optimization statistics for a table or indexed view. Query optimization statistics are automatically recomputed, but in some cases, a query may benefit from updating those statistics more frequently. Beware though that re-computing the query statistics causes queries to be recompiled. This may or may not negate all performance gains you might have achieved by calling update statistics. In fact, it could have a negative impact on performance depending on the characteristics of the system.
+
+32.What is a correlated sub-query?
+A correlated sub-query is a nested query that is linked to the outer query. For instance, say I wanted to find all the employees who have not entered their time for the week. I could query the Employee table to get their first and last name, but I need to look at the TimeEntry table to see if they've entered their time or not. I can't do a straight join here because I'm looking for the absence of time data, so I'll do a correlated sub-query similar to this:
+
+SELECT FirstName, LastName
+
+FROM EMPLOYEE e
+
+WHERE NOT EXISTS (SELECT 1 FROM TimeEntry te
+
+WHERE te.EmpID = e.EmpID
+
+AND te.WeekID = 35)
+
+Notice that the inner query relates to the outer query on the employee ID, thus making it a correlated sub-query. The inner query will be evaluated once per outer query row.
+
+33.What authentication modes does SQL Server support?
+SQL Server supports Windows Authentication and mixed-mode. Mixed-mode allows you to use both Windows Authentication and SQL Server Authentication to log into your SQL Server. It’s important to note that if you use Windows Authentication, you will not be able to log in as sa.
+
+34.Which is better in performance - CONSTRAINT or TRIGGER over a column which restricts say an input of particular value in a column of a table?
+ANS:Constraints gets evaluated before statement can be either inserted or deleted or updated. While trigger executes 
+after or at the same time statement is executing. So if you have to roll back transactio because transaction not 
+meeting condition there is no overhead when you are using constraint ,but if you have to roll back transaction and 
+you have a trigger on that table or column either 1 transaction goes through before rolling back. So basically 
+trigger consumes more resources.
+
+35.what is Buffer cash and Log Cache? Can you Explain it?
+ANS:Like all database servers, Microsoft SQL Server thrives on memory. Each instance of Microsoft SQL Server has its own memory address space. The SQL Server address space (Virtual memory allocation by Windows) consists of two main components: executable code and memory pool. Let's examine each of these components in more details.
+
+SQL Server executable code
+
+Executable code is basically SQL Server's own EXEs and DDLs that are loaded into the address space. The following is breakdown of the various components:
+
+SQL Server Engine
+Open Data Services
+Server Net-Libraries
+Distributed Queries
+Extended Stored Procedures (DLLs)
+OLE Automation Stored Procedures
+SQL Server memory pool
+
+The memory pool is the unit of memory that an instance of SQL Server uses to create and manage data structures relating to client requests. The following data structures are allocated in the memory pool of an instance of SQL Server:
+
+Buffer Cache: This is the pool of memory pages into which data pages are read. An important indicator of the performance of the buffer cache is the Buffer Cache Hit Ratio performance counter. It indicates the percentage of data pages found in the buffer cache as opposed to disk. A value of 95% indicates that pages were found in memory 95% of the time. The other 5% required physical disk access. A consistent value below 90% indicates that more physical memory is needed on the server.
+Procedure Cache: This is the pool of memory pages containing the execution plans for all Transact-SQL statements currently executing in the instance. An important indicator of the performance of the procedure cache is the Procedure Cache Hit Ratio performance counter. It indicates the percentage of execution plan pages found in memory as opposed to disk.
+Log Caches: This is the pool of memory used to read and write log pages. Each log has a set of cache pages. The log caches are managed separately from the buffer cache to reduce the synchronization between log and data buffers.
+Connection Context: Each connection has a set of data structures that record the current state of the connection. These data structures hold items such as parameter values for stored procedures, cursor positioning information, and tables currently being referenced.
+System-level Data Structures: These are data structures that hold data global to the instance, such as database descriptors and the lock table.
+The buffer cache, procedure cache, and log caches are the only memory elements whose size is controlled by SQL Server.
+
+A very important aspect to watch for is whether SQL Server is using the maximum memory available on the system (assuming the system is dedicated to SQL Server). A system with a fully utilized memory may be prone to performance bottlenecks when competition for resources increases. Prepared Transact-SQL statements, for example, may suffer when the procedure cache is unable to expand due to fully utilized buffer caches.
+
+Analyzing cache hit ratios over time with Teratrax Performance Monitor
+
+Teratrax Performance Monitor tracks the history of the buffer and procedure cache hit ratios 
+
+36.WHAT OPERATOR PERFORMS PATTERN MATCHING?
+ANS: Like operator performs pattern matching.
+
+37.What is the default isolation level of the sql server database?
+ANS:The 'Read committed' isolation is the Default isolation level in Sql server
+
+38.If there is failure during updation of certain rows, what will be the state?
+ANS:No changes will occur.the data will be ROLL BACK.
+
+39. If we use where clause in the left outer join then how the query would behave/act?
+ANS:It will act as a inner join.
+
+40. When we are using this query to shrink the log file,what exactly it will execute internally? Do we lose any data 
+when we run this script? which data it will truncate in the log file and  where it is saved. Please let me know...
+USE DatabaseName
+GO
+DBCC SHRINKFILE(<TransactionLogName>, 1)
+BACKUP LOG <DatabaseName> WITH TRUNCATE_ONLY
+DBCC SHRINKFILE(<TransactionLogName>, 1)
+GO
+ 
+ANS: It will remove uncomited data
+
+41.How many nested transaction can possible in sql server?
+ANS:There is a limit of 32 on the maximum nested levels on both SQL Server 2000 and 2005
+  
+42.How can you see what type of locks used?
+ANS:sp_lock to view type of lock applied
+
+43. 1.What is the deferece between DBMS & RDBMS? 2.How can you trouble shoot? If u will get error while installing sql server? 3.How can u trouble shoot slow running query? 4.how can u trouble log shipping errors? 5.why do we use merge replication instead of T.log replication?
+
+ANS:1)DBMS Does Not Support Boyes'Coda 12 Rules
+RDBMS Support 12 Rules of Boy's Coda
+DBMS : Collection of data in Database
+RDBMS : Collection of releated data in a database.
+
+In Trancation Replication : Initial snapahot of the data is 
+applied to at subscribers. and then when data modifications 
+are made at the publisher , the individual transcation are 
+captured and propogated to sbuscribers
+
+In Merge replication : is the process of distributing data 
+from publisher to subscriber, allowing the publisher and 
+subscribers to make updates while connected or disconnected 
+and then merging the updates between sites when they are 
+connencted
+
+44.I am Having tables T1 and T2 both having same data how to check (or) compare the data in both table are same?
+ANS:(select * from T1 except select * from T2) union (Select * from T2 except select * from T1)
+if above query returns no records the data in those tables are same.
+ 
+45.
+
+
+
+
+
+
+
+
+
+

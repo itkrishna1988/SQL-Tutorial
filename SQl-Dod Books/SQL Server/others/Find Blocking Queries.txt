@@ -1,0 +1,19 @@
+select l.request_session_id as requetsessionid,
+	t.blocking_session_id ,
+	t.resource_description,
+	t.wait_type,
+	t.wait_duration_ms, 
+	db_name(l.resource_database_id ) dbname,
+	l.resource_type,
+	l.request_type,
+	wrt.text waitingsql,
+	wrt1.text blockedsql	 
+from sys.dm_tran_locks l
+join sys.dm_os_waiting_tasks t
+on l.lock_owner_address = t.resource_address 
+left join sys.dm_exec_requests d
+on d.session_id = l.request_session_id 
+cross apply sys.dm_exec_sql_text(d.sql_handle) wrt
+left join sys.dm_exec_requests d1
+on d1.session_id = t.blocking_session_id
+outer apply sys.dm_exec_sql_text(d1.sql_handle) wrt1

@@ -1,0 +1,189 @@
+ How can u convert the Date to String? 
+Answer
+# 1 select convert(varchar,columnname,101) from tablename
+ 
+Re: How can u convert the Date to String? 
+Answer
+# 2 select convert(varchar(20),getdate())
+
+SELECT 
+   GETDATE() AS UnconvertedDateTime,
+   CAST(GETDATE() AS nvarchar(30)) AS UsingCast,
+   CONVERT(nvarchar(30), GETDATE(), 126) AS UsingConvertTo_ISO8601  ;
+GO
+ 
+
+
+ Re: What is the difference between in and exists. 
+Ex: select * from emp where empno in(....) and 
+select * from emp where empno exists(....)
+
+ What is the difference between a Join and Union and Union and UnionAll. 
+Answer
+# 1 When you use IN  operator it will scan all the row in table 
+to check and Exists means when its find the data stop 
+execute to check further row.
+
+Join- to join matching data from two or more table.
+Union- Retrive matching data from both table.
+UnionAll- Retrive matching as well as unmatched data from 
+both data.
+
+
+
+ what is lazy writer? 
+Answer
+# 1 The job of the lazy writer is to find dirty pages in the buffer pool and write them out to disk and drop those pages from cache. It does this to keep a certain amount of free pages available within the buffer pool for data that may be requested by other queries. The pages that it writes out are ‘older’ pages, ones that haven’t been used for a while.
+If there’s lots of available buffers, the lazy writer will be doing relatively little work and the number of pages written to disk will be quite low. If the lazy writer’s consistently writing lots of data, it may indicate that there’s a memory bottleneck.
+   
+
+
+Re: What is Index Segmentation ? 
+Answer
+# 1 A segment is a part of relational data base and consists of
+one or more extents. Each extent is further divided into
+blocks. Every segment has an index for holding all of its
+data for quick data retrieval. Index segments can be created
+explicitly by using the CREATE INDEX command. Storage
+parameters for the extents of the index segment can be
+specified along with this command
+ 
+Re: Difference between data structure and data base. 
+Answer
+# 1 Data structure is a collection of different data items and
+data base is a collection of records.
+In data structures like stack, queue etc, we enter or take
+data from any one side only but in data base we enter or
+take data from any where.
+ 
+
+
+Re: How maney row would be print after join if A table have 100 rows and B table have 50 rows... 
+Answer
+# 2 it returns common records between table A and table B, because if we use only join it behaves as a inner join in SQL Server
+   
+
+
+
+By default, the batch-separator keyword is
+go
+
+
+
+How to retrive duplicate records in a table?
+
+
+The waitfor
+command can pause the code for a specified time. When the following batch executes, the
+output from the batch is displayed after a two-second pause:
+Print ‘Beginning’
+waitfor delay ‘00:00:02’
+Print ‘Done’
+Result:
+Beginning
+Done
+
+
+
+
+ 
+----------------------------------------------------------
+
+replicate function....
+replicate('abcc' 5)  ----- abc abc abc abc abc
+
+
+
+
+1.how can i lock the column in the table ?
+Ans: Lock on a columan in a table was not possible..
+
+create trigger trigger_name
+on tablename
+for update 
+as
+if update(col_name)
+begin
+    raiseerror('cannot update column name',16,1)
+    rollback trac
+end
+
+
+Re: Can anybody explain me cold backup and hot backup?  
+Answer
+# 2 Cold Backup and Hot Backup terms are used by Oracle. These 
+terms are not available In MS SQL Server.
+
+Cold Backup: - Takes the Database offline and copy database 
+files to different loction is called cold backup in Oracle.
+
+Hot Backup:- Taking the Database backup when the Database 
+is online.
+ 
+
+
+Keywords 
+
+Nullif
+Insert <table Name> (Col1,clo2,col3) select @col1,col2,col3 from <Table Name>
+
+
+
+
+
+
+diff between Collase and isnull
+why u are used functions?
+
+r u use functions in where clause?
+
+
+Date functions?
+
+
+1.Diff b/w Function & SP?
+2.Error Handling in SQl?
+3.what is View? why u are using Views?
+4.Can u update or insert in view?
+5.size of varchar()?
+6.diff b/w Collase and IsNull?
+7.Diff B/w Table variable and Temp Table?
+8.Indes? Tupe?diff?
+9.Sub Query and Correlated sub query?
+10.Diff b/w where and Having Clause?
+11.Types of Date functions?
+12.Perfomance tuning Techniques?
+13.Types oF triggers?
+14. what is currsor and where it was used?
+15.Can we used Aggregate function is where Clause?
+16.Types of Joins?
+17.examples and Quireys on Join?
+18.Union and Union all
+19. Except
+20.Siff b/w Sql 2000,2005,2008?
+21.Cloaate?
+22Identity
+21.Keys --->Primary,reference,Candidate?
+22.Constraints?
+23.
+
+
+
+
+
+
+
+
+
+718,738,744,745,769,
+
+
+
+
+
+
+
+
+
+
+

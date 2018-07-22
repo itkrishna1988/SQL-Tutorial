@@ -1,0 +1,161 @@
+
+
+
+dither 
+throes
+normalcy 
+daunting 
+mudslinging
+staring
+perspective 
+staggered 
+lumpsum 
+impasse 
+immense 
+stalemate 
+strped
+limping
+viability 
+eagerly 
+resumption 
+beleaguered 
+revival 
+monetize 
+lying 
+denim wardrobe
+regret
+terribly
+sentenced
+sentenced
+exaggeration
+writ
+devotion,
+soared
+expedite
+coup
+ploy 
+belief 
+langushing
+mess
+erstwhile 
+sulking 
+revolt
+mollify
+deserted
+reeling.
+exaggerating.
+queer 
+paralysed 
+anguish 
+snafus 
+mess-ups
+fawning
+adulation
+derision
+Indeed
+bleak 
+prima facie indicates a nexus
+bearded 
+staunch and oft-repeated 
+sputter
+freed 
+pessimistic
+absorption
+affirmative 
+palatable 
+ chubby cheeks 
+chiselled 
+flabs on the hips, waists or thighs. 
+puffy
+chiselled 
+age-defying ingredient is lycopene 
+lustrous 
+blend 
+antagonised 
+albeit 
+asserted 
+baffled 
+
+
+
+ Get that fresh look: Mix 1 egg white, ¼ cup of whole milk, 2 tbsp of baking soda and ½ a cup of water in a small bowl and blend well. Refrigerate it for a short while and then take a small amount onto a wet washcloth; gently massage it on your skin. After 10 minutes rinse well with warm water and pat dry your skin. 
+
+Jojoba oil moisturiser: Jojoba oil has some very distinguishing properties which will result in a beautiful glowing skin. Natural oils like Jojoba often contain anti-ageing nutrients that help repair damaged skin and prevent further damage. Apply the oil as a moisturiser with deep circular motions and let your skin absorb the smoothness of it. 
+
+
+Almond facial mask: Soak almonds overnight and take their skin off the next morning and grind them into a paste; while making the paste add rose water to it. Apply onto the skin and let it dry for 20 minutes. Gently wipe off the mask with a damp wash cloth or rinse with lukewarm water.
+
+
+
+
+
+
+
+has to be
+being
+
+
+eXECUTE STATISTICS TIME ON
+
+Set showplan_Text ON
+set SHOWPLAN_XML ON
+SET STASTICS PROFILE ON
+SET STATISTICS XML ON
+
+fetch stmt 
+fetch stmt with sarg expression
+select stmt without sarg expression
+select stmt with sarg expression
+
+
+
+Sql server -windows 2008 Cluster
+----------------------------
+SAN Environment....
+
+1.Build Windows server 2008 Cluster
+2.Install Sql server 2008 On failover Cluster
+3.Install Sql server 2008 SP1 (Service Pack 1) On both nodes
+4.Setup Active-Active cluster
+5.clustering analysis services.
+6.clustering integration services
+7.Un-install nodes..
+
+Prerequisities:
+1.starwind Software (free Version )
+2. Windows server 2008 (trail Version)
+3. VMWare Workstation (Trail Version )
+4. Sql server Enterprise edition (Trail Version )
+5. Host computer 
+
+
+Alter Table TestingPMO_Forecast_POC_Master add BIT_Active_Status BIT
+
+
+
+
+
+for %f in (*.sql) do sqlcmd /S ctsinsripmo /d sample1 -U prodTestingpmo -P ProdT######2 -i "%f"
+
+
+winmerge
+
+
+CentralRepository.dbo.eTesting_Allocation  DEV
+  vw_CentralRepository_Current_Allocation  
+
+
+DBCC FREEPROCCACHE
+
+set statistics time on
+set statistics io on
+
+archive table
+
+
+
+
+
+
+
+

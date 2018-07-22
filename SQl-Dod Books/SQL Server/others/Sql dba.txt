@@ -1,0 +1,21 @@
+1.What is normalization? Explain different levels of normalization?
+2.What is denormalization and when would you go for it?
+3.How do you implement one-to-one, one-to-many and many-to-many relationships while designing tables?
+4.What's the difference between a primary key and a unique key?
+5.What are user defined datatypes and when you should go for them?
+6.What is bit datatype and what's the information that can be stored inside a bit column?
+7.Define candidate key, alternate key, composite key.
+8.What are defaults? Is there a column to which a default can't be bound?
+9.What is a transaction and what are ACID properties?
+10.Explain different isolation levels
+11.What's the maximum size of a row?
+12.Explain Active/Active and Active/Passive cluster configurations
+13.Explain the architecture of SQL Server
+14.What is lock escalation?
+15.Explain the storage models of OLAP
+16.New features of sql server 2008
+17.What are constraints? Explain different types of constraints.
+18.Whar is an index? What are the types of indexes? How many clustered indexes can be created on a table? I create a separate index on each column of a table. what are the advantages and disadvantages of this approach?
+19.What is RAID and what are different types of RAID configurations?
+20.What are the steps you will take to improve performance of a poor performing query?
+21.What are the steps you will take, if you are tasked with securing an SQL Server?

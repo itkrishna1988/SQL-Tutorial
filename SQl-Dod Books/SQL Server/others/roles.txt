@@ -1,0 +1,22 @@
+· Ability to respond quickly and resolve Critical and High severity issues on a Clustered environment
+
+· Experience in troubleshooting and resolving database integrity issues, performance issues, blocking and deadlocking issues, replication issues, log shipping issues, connectivity issues, security issues etc.
+
+· Experience in Performance Tuning, Query Optimization, using Performance Monitor, SQL Profiler and other related monitoring and troubleshooting tools.
+
+· Ability to detect and troubleshoot SQL Server related CPU, memory, I/O, disk space and other resource contention.
+
+· Strong knowledge & experience of backups, restores, recovery models, database shrink operations, DBCC commands, Clustering, Database mirroring, Replication.
+
+· Strong knowledge & experience of in Schema management (tables, Indexes and user management)
+
+· Experience in performing integrity checks, configuration, patching activities.
+
+· Knowledge of SQL Server tools
+
+· Solid acquaintance with windows server, security delegation, SPNs, storage components.
+
+· Documentation skills for processes and procedures ( creating KBs, runbooks etc )
+
+· SQL Database Operational support to tech users
+

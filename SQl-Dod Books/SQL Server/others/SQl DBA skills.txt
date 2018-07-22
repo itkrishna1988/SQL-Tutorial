@@ -1,0 +1,127 @@
+CDWPK1607G
+
+Select Server
+
+
+Job Description
+Should have worked on Production systems Installation & Configuration and Upgrading of MS SQL Server 2000/ 2005/ 2008 software and products Performance monitoring(SQL profiler, Performance dashboard,Perfmon etc.) Performance tuning, execution plan, troubleshooting, index and statistics Index tuning, Database fragmentation & compression. Apply Patches & Hot fix. Experience With MS SQL Database Mirroring (Build, Roll, maintenance & troubleshooting) Experience With MS SQL Replication (Transactional & Peer to Peer), Clustering, Log Shipping, Backups & restores Data Refresh/ Migration Experience With MS SQL Agent and Features: maintenance plan, scheduled jobs, alert, SQL Mail and DB Mail. Excellent Skill in T- SQL programming and DMV Server monitoring (MOM, Tivoli, etc) would be an added advantage. Proficiency in Data modeling/ architecture design and development. Good Knowledge of SQL Server Integration Services(SSIS),DTS, SSRS, SSAS Experience on operational incident and project case Experience on SQL Server 2012 would be added advantage Should be comfortable working in 24*7 Good communication skills required Total Experience- 8- 10 Yrs
+
+
+
+Job Description
+Introduction: Strategic Operations Delivery is a key element of IBM's globally integrated capability. SO Delivery group works with companies of all sizes, in just about every country imaginable; to provide customers with the best technology services. Through the management of clients' IT environments, the group seeks to improve, enhance and transform business, creating significant cost and performance efficiencies. Leveraging efficient processes and tools and combining it with world- class infrastructure, high- quality and skilled resource base, SO Delivery group provides end- to- end IT Infrastructure Management Services (24*7*365) to IBM clients worldwide. Key services offered include: Command Center Services (includes remote monitoring of servers located worldwide from India, Security operations and network operations), Server Systems Management, IT Security Services, IT Service Desk, Service Management & Project Management/ Transition Services Job Description : Work Experience in SQL Server 2000, 2005 and SQL Server 2008 Should be willing to work in shifts Should have strong communication skills and experience in handling bridge calls Relevant Experience should be more than 2 Years Should have worked in Database Refresh Scenarios and Orphaned Users Should have experience in troubleshooting database Connectivity & network related Issues Should have experience in troubleshooting database performance issues and query tuning Should have worked in High Availability Features like Log Shipping, DB Mirroring and Replication Should have hands on experience in Database Clustering Experience in patching SQL Server. Experience in Installation of SQL Server would be an advantage Experience in ITIL would an added advantage Should have understanding about the database audits Total years of Experience: 5 to 9 years
+
+
+5 + years of experience. Good in SQL Server RDBMS architecture concepts Usage of System catalogs on Query Analyzer Space management including Filegroups Managing Transaction log files User management Backup and recovery methods using Enterprise Manager and Query Analyser. Logical backup and recovery using export/ import from one instance to another. SQL network configuration ( using Server / Client Network utilities) Database performance tuning. Trouble shooting database issues Basic SQL and T/ SQL knowledge Working knowledge of Windows (Windows 2000, Windows 2003) Working Knowledge of SQL Server Cluster. Desirable: Knowledge of SQL Server 2005 Use of problem and change management tools Soft Skills Must have excellent team working skills balanced with ability to work alone and a positive attitude. Customer focus Communication skills # Good English speaking/ writing skills.
+
+
+
+Database Server Capacity planning.
+Planning for Database Server Hardware Upgrade.
+Database Server Migration activities
+Advance Level TroubleShooting and Analysis methods
+Backup Strategy Planning.
+Troublshooting issues on databases installed on clusters / shared environment.
+Installing and Configuring new hardwares.
+Configuring and Troubleshooting Clustering issues.
+Upgrading CPU, memory and network resources.
+Implementing DR and BCP plan.
+SQL best practices implementation and Remediations
+Database Performance tuning.
+SQL Hardening - As per guidelines provided by the organization
+Researching Solutions for unknown Issues
+Coordination with Client Team and Ticket monitoring
+Implementing Clustering and Other High Availability Techniques
+Replication Setup & Issues
+
+
+Strong experience in Database Administration in SQL Server (2000, 2005 , 2008/R2). 
+
+Strong knowledge of backups, restores, recovery models, database shrink operations, DBCC commands, Clustering, Database mirroring, Replication. 
+
+Documentation skills for processes and procedures ( creating KBs, runbooks, topology etc ). 
+
+Knowledge of 3rd party DBA tools and applications ( e.g redgate, idera, SCOM, Erwin ). 
+
+MCDBA / MCT certification. 
+
+
+
+Detect and troubleshoot DB Server CPU, Memory, I/O and other resource contention 
+Troubleshooting and resolving database integrity issues, performance issues, blocking and deadlocking issues, replication issues, log shipping issues, connectivity issues, security issues etc. 
+Respond quickly and effectively to DBA and SaaS Operations team as a point of escalation for anything database related 
+Oversee backup, monitoring, replication and failover 
+Install, upgrade, and configure database software 
+Define and implement physical database layout (both on disk and within the database) 
+Plan, test and execute on disaster recovery plans 
+Can prevent, detect, and correct problems 
+Database network design and maintenance 
+SAN administration and architecture
+
+work Timings: 24 *7 Rotational shifts 
+* Database Administering, Replication,Mirroring
+ *Disaster Recovery  Planning & Security Management
+ * Performance Query tuning 
+*Good Oral and written Communication in English is a must
+ Note: Should be able to join in a week or two (Mandatory)  .
+
+
+3.5-6  years of experience providing database administration services in the following environments - MS SQL Server 2005/2008/2008-R2/ 2012 require comprehensive knowledge, along with extensive and varied experience in these Log shipping, Replication, DB Mirroring, DB backup and Recovery, Cluster environment experience and “Always on”
+ 
+2.SQL Server 2005 /2008/2008 R2 /2012 Database Administration (MCDBA/MCTS/MCITP Certification Preferred).
+ 
+3.Very strong technical skills with the experience of handling support for multiple deliveries.
+ 
+4.Prior experience in handling deliveries using ITIL framework.
+ 
+5.Ability to deal with conflicting deadlines on a regular basis when managing work packages associated with projects. Good troubleshooting skill is a must.
+ 
+6.Proven experience in Database Technologies and able to Architect/Design/implement a DB solution which meet client requirement of High Availability, Performance and Reliability
+ 
+7.Ability to utilize various tools to provide system management functions such as: system backup/recovery, code promotion, system monitoring.
+ 
+8.Ability to perform installations, software upgrades, and apply patches.
+
+
+• SQL Database Admin with excellent experience on SQL Server 2000, 2005, 2008, • Database upgrade from lower versions to 2008, and migration of the databases from legacy to current version 2008, • Excellent knowledge of Migration planning, procedures and execution, • Excellent knowledge of SQL database Backup/Restore, • Excellent knowledge of windows clustering, good knowledge of windows operating system 2003,2008,. • Good Communication skills and fluency in English. • Good Documentation skills and should be flex on working hours • Location : Bangalore / Kolkata SQL Database Admin , Migration, upgrade, Migration procedures, Backup/Restore
+
+SQL Database Admin with excellent experience on SQL Server 2000, 2005, 2008, • Database upgrade from lower versions to 2008, and migration of the databases from legacy to current version 2008, • Excellent knowledge of Migration planning, procedures and execution, • Excellent knowledge of SQL database Backup/Restore, • Excellent knowledge of windows clustering, good knowledge of windows operating system 2003,2008,. • Good Communication skills and fluency in English. • Good Documentation skills and should be flex on working hours • Location : Bangalore / Kolkata SQL Database Admin , Migration, upgrade, Migration procedures, Backup/Restore
+
+
+
+
+ 
+ •         The Candidate MUST have Minimum 4+ Years of "Hands-On" experience in MSBI SSAS, SSRS, SSIS
+ 
+ 
+ 
+ 
+ •        Must have experience in MS SQL BI 2008/ 2012 & MS BI (Business Intelligence) Must have executed more than 4 medium/large projects using MS SQL BI
+ 
+ 
+ 
+ 
+ •         Must have experience in ETL & Database Optimization, DataMart, Cubes, MDX and DMX (Must have written MDX queries)
+
+
+
+
+
+ProdT######2
+
+
+
+Snapshot publication:
+The Publisher sends a snapshot of the published data to Subscribers at scheduled intervals.
+
+Transactional publication:
+The Publisher streams transactions to the Subscribers after they receive an initial snapshot of the published data.
+
+Peer-to-Peer publication:
+Peer-Peer publication enables multi-master replication. The publisher streams transactions to all the peers in the topology. All peer nodes can read and write changes and the changes are propagated to all the nodes in the topology.
+
+Merge publication:
+The Publisher and Subscribers can update the published data independently after the Subscribers receive an initial snapshot of the published data. Changes are merged periodically. Microsoft SQL Server Compact Edition can only subscribe to merge publications.
+
+
+

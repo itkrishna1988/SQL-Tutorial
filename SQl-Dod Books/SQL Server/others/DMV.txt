@@ -1,0 +1,248 @@
+select execution_count,
+object_name (object_id),
+	   ((total_worker_time/execution_count)/1000) AS [Avg CPU time (ms)],
+	   ((total_elapsed_time/execution_count)/1000) AS [Avg Elapsed time (ms)],
+	   cached_time,
+	   last_execution_time,
+	   plan_handle,
+	   sql_handle,
+	   (last_worker_time/1000) AS [Last CPU time (ms)],
+	   (last_elapsed_time/1000) AS [Last Elapsed time (ms)],
+	   (min_worker_time/1000) AS [Min CPU time (ms)],
+	   (max_worker_time/1000) AS [Max CPU time (ms)],
+	   (min_elapsed_time/1000) AS [Min Elapsed time (ms)],
+	   (max_elapsed_time/1000) AS [Max Elapsed time (ms)]
+from   sys.dm_exec_procedure_stats
+where  object_id = object_id('Usp_ForecastBatch_VALUES_FOR_EXCEL_IMPORT');
+
+
+	Usp_Forecast_Get_Vslops
+
+Usp_ForecastBatch_VALUES_FOR_EXCEL_IMPORT
+Usp_Forecast_Get_Practice_Head_test
+
+
+SELECT Substring(st.TEXT, ( qs.statement_start_offset / 2 ) + 1, ( ( CASE statement_end_offset
+                                                                       WHEN -1 THEN Datalength(st.TEXT)
+                                                                       ELSE qs.statement_end_offset
+                                                                     END - qs.statement_start_offset ) / 2 ) + 1) AS statement_text,
+       execution_count,
+       ( ( total_worker_time / execution_count ) / 1000 )    AS [Avg CPU time (ms)],
+       ( ( total_elapsed_time / execution_count ) / 1000 )   AS [Avg Elapsed time (ms)],
+       statement_start_offset,
+       statement_end_offset,
+       creation_time,
+       last_execution_time,
+       ( last_worker_time / 1000 )                           AS [Last CPU time (ms)],
+       ( last_elapsed_time / 1000 )                          AS [Last Elapsed time (ms)],
+       ( min_worker_time / 1000 )                            AS [Min CPU time (ms)],
+       ( min_elapsed_time / 1000 )                           AS [Min Elapsed time (ms)],
+       ( max_worker_time / 1000 )                            AS [Max CPU time (ms)],
+       ( max_elapsed_time / 1000 )                           AS [Max Elapsed time (ms)],
+       tqp.query_plan,
+       --CAST (tqp.query_plan AS XML) AS plan_xml,
+       qs.plan_handle
+FROM   sys.dm_exec_query_stats qs
+       CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) AS st
+       CROSS APPLY sys.dm_exec_text_query_plan(qs.plan_handle, qs.statement_start_offset, qs.statement_end_offset) AS tqp
+WHERE qs.plan_handle = 0x05004A001F2E44524081ADF2040000000000000000000000;
+---------------------------------------------------------------------
+
+
+select i.index_id,
+	   i.name, 
+	   ios.range_scan_count,
+	   ios.singleton_lookup_count,
+	   ios.row_lock_count,
+	   ios.row_lock_wait_count,
+	   ios.row_lock_wait_in_ms,
+	   ios.page_lock_count,
+	   ios.page_lock_wait_count,
+	   ios.page_lock_wait_in_ms,
+	   ios.index_lock_promotion_attempt_count,
+	   ios.index_lock_promotion_count,
+	   ios.leaf_insert_count,
+	   ios.leaf_delete_count,
+	   ios.leaf_update_count,
+	   ios.leaf_ghost_count
+from   sys.dm_db_index_operational_stats (
+			db_id(), 
+			@object_id, 
+			NULL, 
+			NULL) ios
+	   inner join sys.indexes i
+	     on i.index_id = ios.index_id
+	        and i.object_id = ios.object_id
+order by ios.index_id;
+
+
+
+SELECT a.index_id, 
+object_name(a.object_id),
+       b.name,
+       a.user_seeks,
+       a.user_scans,
+       a.user_lookups,
+       a.user_updates,
+       a.last_user_seek,
+       a.last_user_scan,
+       a.last_user_lookup,
+       a.last_user_update,
+       ((ps.used_page_count*8)/1024) AS 'Used (MB)'
+FROM   sys.dm_db_index_usage_stats a
+       INNER JOIN sys.indexes b
+         ON a.object_id = b.object_id
+            AND a.index_id = b.index_id
+       INNER JOIN sys.dm_db_partition_stats ps
+         ON ps.object_id = a.object_id
+            AND ps.index_id = a.index_id
+--WHERE  a.object_id = object_id('[InventorySold]')
+ORDER BY a.object_id, user_seeks, user_scans, user_lookups
+
+
+
+SELECT s.name AS SchemaName, t.name AS TableName,
+s.schema_id, t.OBJECT_ID
+FROM sys.Tables t
+INNER JOIN sys.schemas s ON s.schema_id = t.schema_id
+WHERE t.name = OBJECT_NAME(309576141)
+GO
+
+
+Select * from sys.tables
+
+---------------------------------------------------------------------------------------------------------------------
+
+select 
+                s.objectid, 
+                OBJECT_NAME(s.objectid) OBJECT_NAME,
+                SUBSTRING(s.text, (statement_start_offset/2) + 1,
+                                (
+                                (CASE statement_end_offset 
+                                                WHEN -1 THEN DATALENGTH(text) 
+                                                ELSE statement_end_offset 
+                                                END - statement_start_offset
+                                )/2
+                                ) + 1) AS query_text, 
+                qs.execution_count ,
+                qs.total_elapsed_time,
+                ((qs.total_elapsed_time/qs.execution_count)/1000) as avgelapsedtime, 
+                qs.total_logical_reads,
+                qs.total_logical_writes,
+                qs.total_physical_reads,
+                qs.plan_generation_num,
+                qs.total_worker_time As CPUPressure,
+                DATEDIFF(Minute, qs.creation_time, GetDate()) AS 'Age in Cache(mins)',
+                p.query_plan
+                --qs.plan_handle , qs.statement_start_offset , qs.statement_end_offset 
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(sql_handle) s
+CROSS APPLY sys.dm_exec_query_plan(plan_handle) p
+WHERE OBJECT_NAME(s.objectid) IS NOT NULL
+ORDER BY avgelapsedtime desc
+
+-----------------------------------------------------------------------------------------------------------------------------------
+select execution_count,
+	   ((total_worker_time/execution_count)/1000) AS [Avg CPU time (ms)],
+	   ((total_elapsed_time/execution_count)/1000) AS [Avg Elapsed time (ms)],
+	   cached_time,
+	   last_execution_time,
+	   plan_handle,
+	   sql_handle,
+	   (last_worker_time/1000) AS [Last CPU time (ms)],
+	   (last_elapsed_time/1000) AS [Last Elapsed time (ms)],
+	   (min_worker_time/1000) AS [Min CPU time (ms)],
+	   (max_worker_time/1000) AS [Max CPU time (ms)],
+	   (min_elapsed_time/1000) AS [Min Elapsed time (ms)],
+	   (max_elapsed_time/1000) AS [Max Elapsed time (ms)]
+from   sys.dm_exec_procedure_stats
+where  object_id = object_id('dbo.USP_DASHBOARD_VERTICAL_LEVERS_TREND'); --60	73
+
+ 
+USP_DASHBOARD_VERTICAL_LEVERS_TREND 'BFS', 12, 2012
+
+Select OBJECT_NAME(object_id),last_execution_time,  last_physical_reads, last_logical_reads, last_logical_writes, last_elapsed_time
+ from sys.dm_exec_procedure_stats where OBJECT_NAME (object_id ) = 'USP_DASHBOARD_PRAC_SUMMARY_VERTICAL_VIEW'
+  
+ SELECT Substring(st.TEXT, ( qs.statement_start_offset / 2 ) + 1, ( ( CASE statement_end_offset
+ WHEN -1 THEN Datalength(st.TEXT) ELSE qs.statement_end_offset  END - qs.statement_start_offset ) / 2 ) + 1) AS statement_text,
+       execution_count,
+       ( ( total_worker_time / execution_count ) / 1000 )    AS [Avg CPU time (ms)],
+       ( ( total_elapsed_time / execution_count ) / 1000 )   AS [Avg Elapsed time (ms)],
+       statement_start_offset,
+       statement_end_offset,
+       creation_time,
+       last_execution_time,
+       ( last_worker_time / 1000 )                           AS [Last CPU time (ms)],
+       ( last_elapsed_time / 1000 )                          AS [Last Elapsed time (ms)],
+       ( min_worker_time / 1000 )                            AS [Min CPU time (ms)],
+       ( min_elapsed_time / 1000 )                           AS [Min Elapsed time (ms)],
+       ( max_worker_time / 1000 )                            AS [Max CPU time (ms)],
+       ( max_elapsed_time / 1000 )                           AS [Max Elapsed time (ms)],
+       tqp.query_plan,
+       --CAST (tqp.query_plan AS XML) AS plan_xml,
+       qs.plan_handle
+FROM   sys.dm_exec_query_stats qs
+       CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) AS st
+       CROSS APPLY sys.dm_exec_text_query_plan(qs.plan_handle, qs.statement_start_offset, qs.statement_end_offset) AS tqp
+WHERE qs.plan_handle = 0x05004A004520243040A1D7AA010000000000000000000000;
+ 
+SElect top 1 * from sys.dm_exec_sql_text(sql_handle)
+
+----------------------------------------------------------------------------------------------------------------------
+
+SELECT 
+      Distinct DB_NAME(DB_ID()) DatabaseName,
+      TableName,
+      Indexname,
+      SUBSTRING(Column_List, 3, LEN(Column_List)) Column_List ,
+      Unique_Type,
+      PrimaryKey,
+      UniqueConstraint,
+      [Disabled] into #DupIndices
+FROM
+(
+      SELECT 
+      OBJECT_NAME(I.OBJECT_ID) TableName,
+      i.name as Indexname,
+      i.type_desc as Index_Type,
+      CASE WHEN is_unique = 1 then 'Unique' ELSE 'Non Unique' END as Unique_Type,
+      CASE WHEN is_primary_key = 1 then 'Yes' ELSE 'No' END as PrimaryKey,
+      CASE WHEN is_unique_constraint = 1 then 'Yes' ELSE 'No' END as UniqueConstraint,
+      CASE WHEN is_disabled = 1 THEN 'Yes' ELSE 'No' End as [Disabled],
+      (
+            SELECT 
+            ' ,[' + C.NAME + CASE WHEN IC_S.is_descending_key = 0 THEN ' ASC ' ELSE ' DESC ' END + '] ' 
+            FROM  SYS.COLUMNS C
+            JOIN SYS.INDEX_COLUMNS IC_S
+            ON C.COLUMN_ID = IC_S.COLUMN_ID
+            AND C.OBJECT_ID = IC_S.OBJECT_ID
+            AND IC_S.is_included_column = 0
+            WHERE IC_S.OBJECT_ID = IC.OBJECT_ID
+            AND IC_S.index_id = IC.index_id 
+            FOR XML PATH('')
+      )Column_List
+      FROM sys.indexes I
+      JOIN sys.index_columns IC
+      ON I.OBJECT_ID = IC.OBJECT_ID
+      AND I.index_id = IC.index_id 
+      AND I.INDEX_ID > 0
+      AND IC.is_included_column = 0
+      JOIN SYS.TABLES T
+      on T.OBJECT_ID = I.OBJECT_ID
+      AND T.TYPE = 'U'
+) Main_Data 
+WHERE TableName <> 'sysdiagrams'
+ORDER BY TableName, SUBSTRING(Column_List, 3, LEN(Column_List))
+
+
+select TableName, Column_List, COUNT(*) from #DupIndices
+group by TableName, Column_List
+having COUNT(*) > 1
+
+
+drop table #DupIndices
+
+
+Select * from sys.columns
+---------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,165 @@
+INSERT INTO @ACCOUNTPORTFOLIO                
+					(
+					ProjectId ,
+					VarCreatedby,
+					AccountName ,
+					Vertical,
+					Record_Year,
+					ProjectClass,
+					ProjectName,
+					ProjectType,
+					ProjectSubType,
+					GEO,
+					JAN_REV,
+					FEB_REV,
+					MAR_REV,
+					APR_REV,
+					MAY_REV,
+					JUN_REV,
+					JUL_REV,
+					AUG_REV,
+					SEP_REV,
+					OCT_REV,
+					NOV_REV,
+					DEC_REV,
+					TOTAL,
+					COMIT_STATUS_NAME,
+					COMIT_STATUS_ID,
+					LASTUPDATEDDATE
+					)
+		SELECT		VAL.Int_Project_id ProjectId,
+					--@VarCreatedBy VarCreatedby,
+					VAL.Var_Created_By VarCreatedby,
+					MAS.Var_Account_Name AccountName,
+					MAS.Var_Vertical Vertical,
+					--@IntYr Record_Year,
+					VAL.Int_Yr Record_Year,
+					'NORMAL' ProjectClass,
+					dbo.fnGetProjectData(VAL.Int_Project_id)ProjectName,
+					dbo.fnGetProjectType(VAL.Int_Project_id)ProjectType,
+					dbo.fnGetProjectSubType(VAL.Int_Project_id)ProjectSubType,
+					STS.Var_Geo  GEO,
+					SUM(VAL.Dec_Jan) JAN_REV,
+					SUM(VAL.Dec_Feb) FEB_REV,
+					SUM(VAL.Dec_Mar) MAR_REV,
+					SUM(VAL.Dec_Apr) APR_REV,
+					SUM(VAL.Dec_May) MAY_REV,
+					SUM(VAL.Dec_Jun) JUN_REV,
+					SUM(VAL.Dec_Jul) JUL_REV,
+					SUM(VAL.Dec_Aug) AUG_REV,
+					SUM(VAL.Dec_Sep) SEP_REV,
+					SUM(VAL.Dec_Oct) OCT_REV,
+					SUM(VAL.Dec_Nov) NOV_REV,
+					SUM(VAL.Dec_Dec) DEC_REV,
+					(SUM(VAL.Dec_Jan)+ SUM(VAL.Dec_Feb)+
+					SUM(VAL.Dec_Mar) + SUM(VAL.Dec_Apr)+
+					SUM(VAL.Dec_May) + SUM(VAL.Dec_Jun)+
+					SUM(VAL.Dec_Jul) + SUM(VAL.Dec_Aug)+
+					SUM(VAL.Dec_Sep) + SUM(VAL.Dec_Oct)+
+					SUM(VAL.Dec_Nov) + SUM(VAL.Dec_Dec))TOTAL,                                          
+					(SELECT CASE WHEN STS.Int_Hierarchy_id  = '1' THEN 'Not Submitted' ELSE 'Submitted' END) COMIT_STATUS_NAME,
+					dbo.GetCommitStatus(STSMAS.Int_Commit_Statusid) COMIT_STATUS_ID,
+					CAST(MAX(STS.Dt_Updated_Date) AS DATE) LASTUPDATEDDATE
+		FROM		TestingPMO_Forecast_Values (NOLOCK) VAL
+		INNER JOIN	TestingPMO_Forecast_POC_Master (NOLOCK) MAS
+		ON			VAL.Int_Project_id=MAS.Int_Project_id
+		AND			VAL.Int_Yr=@IntYr
+		INNER JOIN	TestingPMO_Forecast_Commit_Status (NOLOCK) STS
+		ON			VAL.Int_Project_id=STS.Int_Project_id
+		AND			STS.Int_Yr=@IntYr
+		INNER JOIN	TestingPMO_Forecast_Hierarchy_Commit_Status_Master (NOLOCK) STSMAS
+		ON			STS.Int_Commit_Statusid=STSMAS.Int_Commit_Statusid
+		WHERE		VAL.Int_Category_id IN (1,2,3)
+		AND			STS.Var_Created_By=@VarCreatedBy
+		AND			VAL.Var_Geo=STS.Var_Geo
+		AND			VAL.Var_Created_By=@VarCreatedBy
+		AND			VAL.Int_Yr=@IntYr
+		GROUP BY	VAL.Int_Project_id,
+					--STSMAS.Var_Commit_Status_Name,
+					STS.Int_Hierarchy_id,
+					STSMAS.Int_Commit_Statusid,
+					STS.Var_Geo,
+					Mas.Var_Account_Name,
+					MAS.Var_Vertical,
+					VAL.Var_Created_By,
+					VAL.Int_Yr
+					
+		UNION ALL
+		
+		SELECT		VAL.Int_Project_id ProjectId,
+					--@VarCreatedBy VarCreatedby,
+				    VAL.Var_Created_By VarCreatedby,
+					UIS.Var_Account AccountName,
+					UIS.Var_Vertical Vertical,
+					--@IntYr Record_Year,
+					VAL.Int_Yr Record_Year,
+					'PIPELINE' ProjectClass,
+					dbo.fnGetProjectData(VAL.Int_Project_id)ProjectName,
+					dbo.fnGetProjectType(VAL.Int_Project_id)ProjectType,
+					dbo.fnGetProjectSubType(VAL.Int_Project_id)ProjectSubType,
+					STS.Var_Geo  GEO,
+					SUM(VAL.Dec_Jan) JAN_REV,
+					SUM(VAL.Dec_Feb) FEB_REV,
+					SUM(VAL.Dec_Mar) MAR_REV,
+					SUM(VAL.Dec_Apr) APR_REV,
+					SUM(VAL.Dec_May) MAY_REV,
+					SUM(VAL.Dec_Jun) JUN_REV,
+					SUM(VAL.Dec_Jul) JUL_REV,
+					SUM(VAL.Dec_Aug) AUG_REV,
+					SUM(VAL.Dec_Sep) SEP_REV,
+					SUM(VAL.Dec_Oct) OCT_REV,
+					SUM(VAL.Dec_Nov) NOV_REV,
+					SUM(VAL.Dec_Dec) DEC_REV,
+					(SUM(VAL.Dec_Jan)+ SUM(VAL.Dec_Feb)+
+					SUM(VAL.Dec_Mar) + SUM(VAL.Dec_Apr)+
+					SUM(VAL.Dec_May) + SUM(VAL.Dec_Jun)+
+					SUM(VAL.Dec_Jul) + SUM(VAL.Dec_Aug)+
+					SUM(VAL.Dec_Sep) + SUM(VAL.Dec_Oct)+
+					SUM(VAL.Dec_Nov) + SUM(VAL.Dec_Dec))TOTAL,                                      
+					(SELECT  CASE WHEN    STS.Int_Hierarchy_id  = '1' THEN 'Not Submitted'  ELSE  'Submitted' END) COMIT_STATUS_NAME,
+					dbo.GetCommitStatus(STSMAS.Int_Commit_Statusid) COMIT_STATUS_ID,
+					CAST(MAX(STS.Dt_Updated_Date) AS DATE) LASTUPDATEDDATE
+		FROM		TestingPMO_Forecast_Values (NOLOCK) VAL
+		INNER JOIN	TestingPMO_Forecast_UnIdentified_Master (NOLOCK) UIS
+		ON			VAL.Int_Project_id=UIS.Int_UnIdentified_Id
+		AND			VAL.Int_Yr=@IntYr
+		INNER JOIN	TestingPMO_Forecast_Commit_Status (NOLOCK) STS
+		ON			VAL.Int_Project_id=STS.Int_Project_id
+		AND			STS.Int_Yr=@IntYr
+		INNER JOIN	TestingPMO_Forecast_Hierarchy_Commit_Status_Master (NOLOCK) STSMAS
+		ON			STS.Int_Commit_Statusid=STSMAS.Int_Commit_Statusid
+		WHERE		VAL.Int_Category_id IN (1,2,3)
+		AND			STS.Var_Created_By=@VarCreatedBy
+		AND			VAL.Var_Geo=STS.Var_Geo
+		AND			VAL.Var_Created_By=@VarCreatedBy
+		AND			VAL.Int_Yr=@IntYr
+		GROUP BY	VAL.Int_Project_id,
+					--STSMAS.Var_Commit_Status_Name,
+					STS.Int_Hierarchy_id,
+					STSMAS.Int_Commit_Statusid,
+					STS.Var_Geo,
+					UIS.Var_Account,
+					UIS.Var_Vertical,
+					VAL.Var_Created_By,
+					VAL.Int_Yr
+					
+					
+					
+		go
+		
+		exec Usp_Forecast_Get_Account_Portfolio @VarCreatedBy='276624',@IntYr=2012
+		
+		
+		INSERT INTO @T_PROJECTS
+									SELECT Project_ID
+									FROM CentralRepository.dbo.vw_CentralRepository_Current_Allocation (NOLOCK)
+									WHERE Associate_ID=@AssociateID	
+									AND Allocation_End_Date>GETDATE()																
+									GROUP BY Project_ID,Allocation_End_Date 
+									HAVING MAX(Allocation_Percentage)=(SELECT MAX(Allocation_Percentage) FROM CentralRepository.dbo.vw_CentralRepository_Current_Allocation WHERE
+																		Associate_ID=@AssociateID  AND Allocation_End_Date > GETDATE())
+										
+							go
+									
+									SELECT  top 1 @Description=REV.VAR_ProjectSubType       
+            FROM    TestingPmo_Dashboard_Hp_Revenue (NOLOCK) REV                                        
