@@ -1,0 +1,7 @@
+SELECT 
+	DB_NAME(database_id)DBName
+	, Statement -- TableName where the index is missing
+	, equality_columns -- This column used in where clause with equal to condition ie where this column = some value
+	, inequality_columns -- This column used in where clause with non equal to condition ie where this column <(or > or != and so on) some value
+	, included_columns -- This column used in select clause 
+FROM sys.dm_db_missing_index_details

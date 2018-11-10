@@ -1,0 +1,19 @@
+SELECT
+	DB_NAME(FS.database_id) DatabaseName
+	, MF.name [Filename]
+	, MF.physical_name Filepath
+	, MF.type_desc Filetype
+	, FS.num_of_reads -- NO of read operations performed
+	, FS.num_of_bytes_read -- No of bytes read
+	, FS.io_stall_read_ms -- Total time, in milliseconds, that the users waited for reads issued on the file.
+	, FS.num_of_writes -- NO of write operations performed
+	, FS.num_of_bytes_written -- No of bytes write
+	, FS.io_stall_write_ms -- Total time, in milliseconds, that the users waited for write issued on the file.
+	, FS.io_stall -- Total time, in milliseconds, that the users waited for read & write issued on the file.
+ FROM sys.dm_io_virtual_file_stats(NULL, NULL) FS
+ JOIN sys.master_files MF
+ ON FS.database_id = MF.database_id
+ AND FS.file_id = MF.file_id
+ ORDER BY FS.io_stall DESC
+ 
+ 

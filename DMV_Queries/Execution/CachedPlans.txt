@@ -1,0 +1,13 @@
+
+SELECT 
+	DB_NAME (ST.dbid) DBName -- Databasename
+	, OBJECT_NAME (ST.objectid) ObjectName -- Objectname
+	, CP.usecounts -- No of times the plan used
+	, CP.cacheobjtype 
+	, CP.objtype 
+	, ST.text SQLtext
+	, PL.query_plan
+FROM sys.dm_exec_cached_plans CP
+CROSS APPLY sys.dm_exec_sql_text (CP.plan_handle) ST
+CROSS APPLY sys.dm_exec_query_plan (CP.plan_handle) PL
+WHERE st.objectid = object_id('test_p1')

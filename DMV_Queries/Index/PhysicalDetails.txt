@@ -1,0 +1,23 @@
+SELECT 
+DB_NAME(IPS.database_id) DatabaseName
+	, OBJECT_NAME(IPS.object_id) TableName
+	, I.name IndexName
+	, IPS.index_type_desc
+	, IPS.alloc_unit_type_desc
+	, IPS.index_depth -- No of Btree level
+	, IPS.index_level -- current level of the btree ie root node, leaf/ intermediate. 0 means leaf level
+	, IPS.avg_fragmentation_in_percent -- External fragmentation
+	, IPS.fragment_count
+	, IPS.avg_page_space_used_in_percent -- Internal fragmentation
+	, IPS.page_count
+	, IPS.record_count
+	, IPS.min_record_size_in_bytes
+	, IPS.max_record_size_in_bytes
+	, IPS.avg_record_size_in_bytes
+FROM sys.dm_db_index_physical_stats(DB_ID(), Null, null, Null, 'DETAILED') IPS
+JOIN sys.indexes I
+ON IPS.object_id = I.object_id
+AND IPS.index_id = I.index_id
+JOIN sys.tables T
+ON T.object_id = I.object_id
+AND T.type = 'U'

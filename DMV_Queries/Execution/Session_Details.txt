@@ -1,0 +1,18 @@
+SELECT 
+	session_id
+	, login_time  
+	, host_name --Request machine name
+	, program_name --request programname Ex Managementstudio
+	, login_name 
+	, status -- Sleeping or running
+	, cpu_time -- cpu time in milliseconds
+	, total_elapsed_time --total execution time in ms
+	, memory_usage -- Number of 8 kb pages
+	, reads --no of reads
+	, writes -- no of wites
+	, logical_reads --no of logical reads
+	, row_count -- no of rows returned in the last query
+	, last_request_start_time 
+	, last_request_end_time 
+FROM sys.dm_exec_sessions 
+WHERE is_user_process = 1

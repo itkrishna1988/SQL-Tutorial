@@ -1,0 +1,25 @@
+SELECT 
+	DB_NAME(IOS.database_id) DatabaseName
+	, OBJECT_NAME(IOS.object_id) TableName
+	, CASE WHEN I.name IS NULL THEN 'HEAP' ELSE I.name END  IndexName
+	, leaf_insert_count --Cumulative count of leaf-level inserts
+	, leaf_delete_count 
+	, leaf_update_count 
+	, leaf_ghost_count 
+	, range_scan_count -- range and scan count for the index or heap
+	, singleton_lookup_count  -- Cumalative count of single row retrival
+	, page_latch_wait_count -- No of time DB engine wait for page latch contention
+	, page_latch_wait_in_ms  -- Ms time DB engine wait for page latch contention
+	, row_lock_count  -- No of row locks requested
+	, row_lock_wait_in_ms -- Total number of milliseconds the Database Engine waited on a row lock.
+	, page_lock_count
+	, page_lock_wait_in_ms 
+	, page_io_latch_wait_count 
+	, page_io_latch_wait_in_ms 
+FROM sys.dm_db_index_operational_stats(db_id(), null, null, null)  IOS
+JOIN sys.indexes I
+ON IOS.object_id = I.object_id
+AND IOS.index_id = I.index_id
+JOIN sys.tables T
+ON T.object_id = I.object_id
+AND T.type = 'U'

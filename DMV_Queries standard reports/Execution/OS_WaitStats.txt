@@ -1,2 +1,0 @@
-select * from sys.dm_os_wait_stats order by 2 desc
---http://msdn.microsoft.com/en-us/library/ms179984.aspx
