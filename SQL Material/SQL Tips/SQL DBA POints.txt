@@ -1,0 +1,138 @@
+
+DIFFERENTIAL Backup
+BACKUP DATABASE [OneC_TestingPMO] TO  DISK = N'E:\TestingPMO20\Krishna\Replication\OneC_TestingPMO_Jan27.bak' WITH  DIFFERENTIAL , NOFORMAT, NOINIT,  NAME = N'OneC_TestingPMO-Differential Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10
+GO
+FULL BACKUP
+BACKUP DATABASE [OneC_TestingPMO] TO  DISK = N'D:\DataBases\Onec_Testingpmo.bkp' WITH NOFORMAT, NOINIT,  NAME = N'OneC_TestingPMO-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10
+GO
+BACKUP LOG [OneC_TestingPMO] TO  DISK = N'D:\Dashboard_Old_Data\Onec_Testingpmo' WITH NOFORMAT, NOINIT,  NAME = N'OneC_TestingPMO-Transaction Log  Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10
+GO
+Restore DataBase
+RESTORE DATABASE [OneC_TestingPMO] FROM  DISK = N'D:\Dashboard\Onec_Testingpmo.bkp' WITH  FILE = 1, 
+ MOVE N'Onec_TestingPMO' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Onec_TestingPMO.mdf', 
+  MOVE N'Onec_TestingPMO_log' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Onec_TestingPMO_log.ldf',  NOUNLOAD,  REPLACE,  STATS = 5
+
+REstore With NO Recovery And replace existing file-->(Recovery,No Recovery,Stand By(Different Databse States))
+RESTORE DATABASE [OneC_TestingPMO] FILE = N'Onec_TestingPMO' FROM  DISK = N'D:\Dashboard\Onec_Testingpmo.bkp' WITH  FILE = 1,  NORECOVERY,  NOUNLOAD,  REPLACE,  STATS = 10
+
+Changing Database Recovery Model
+Alter Database [OneC_TestingPMO] Set Recovery Full
+
+The principal and witness server instances cannot be the same instance of SQL Server. Select another instance as the witness server instance.
+
+
+
+
+Database Mail Setup SQL Server 2008 R2 
+Upgrade Mirror Server from SQL 2008 to SQL 2008 R2 
+SQL Server 2012 Database Mirroring
+
+
+
+Actual error number: 1205
+Actual line number: 823
+Msg 50000, Level 13, State 52, Procedure TESTING_PORTING_PROJECTID, Line 1000
+Transaction (Process ID 168) was deadlocked on lock | communication buffer resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+
+
+
+I heard (and learned) a lot of things from great people in the past, and It is the base for my present
+
+
+vw_CentralRepository_RHMS_Customer_Vertical
+vw_CentralRepository_RHMS_Customer_SubVertical
+vw_CentralRepository_RHMS_Customer
+vw_CentralRepository_RHMS_CustomerBU_HierarchyEntityGroup
+
+
+Install and configure SQL Server 2005 Installation of Service packs hot fixes DB backups and restorationConfiguring and Administration of SQL clusterRunning Index tuning wizard Monitoring server performance and memory activitiesHandling User Management and Security ProcessesCreating and Monitoring the Jobs and Maintenance PlansInstall and configure cluster replication log shippingMaintain Data Integrity using Constraints Data Types and TriggersWorking with DTS packagesBackup tools like litespeedKnowledge in HPSM Autosys ErwinKnowledge in perl scripting  
+Customer  The Travelers Indemnity Company        
+Practice  IT Infrastructure Services        
+Pool in SO  ITIS Pool        
+ 
+Bid details  
+
+
+1 Knowledge on version Sql server 2005 and sql server 2008 2 Hands on experience on Backup and restore 3 Knowledge on SQl Server installation 4 Database mirroring 5 Log shipping 6 Basic replicatiokn concepts 7 Maintenance plan creation 8 Basic troubleshooting 9 Hands on experience in user management 10 Lite Speed backup and restore 
+
+
+Capacity Planning-Practitioner,Risk Management-Practitioner,Operations Excellence-Practitioner,Release Management-Practitioner,Service Level Management-Practitioner,Customer Service Orientation-Practitioner,Services Operations Management-Practitioner,People Management-Practitioner,Continual Service Improvement-Specialist,MS SQL Server Admin-Specialist,Change Management-Practitioner,Data Analysis and Reporting-Practitioner,Crit Sit Mgmt-Practitioner,UNIX/Windows Admin-Practitioner
+
+
+
+Install and configure SQL Server 2005 2008 2008 R22012Installation of Service packs hot fixes DB backups and restorationConfiguring and Administration of SQL clusterRunning Index tuning wizard Monitoring server performance and memory activitiesHandling User Management and Security ProcessesCreating and Monitoring the Jobs and Maintenance PlansInstall and configure clusterKnowledge on SQL Server 2012 and featuresDatabase migration techniquesMaintain Data Integrity using Constraints Data Types and TriggersWorking with DTS packagesBackup tools like SQLlitespeedKnowledge in HPSM Autosys Erwin RemedyKnowledge in Perl scripting SQL DBA 
+
+
+9704275016
+9989807856
+
+aww tuzo mogh kortha -- I love you --> Kokan
+te amo	-- I love you --> Spanish
+
+
+Charana theja Seshadri (charanatheja.s@hcl.com); avnuthan@gmail.com; bellamkondakiran kumar (bellamkondakirank@suntecgroup.com); srinu <bsrini10@ford.com>; Bommareddy, Uma Devi (uma.devi.bommareddy@fmr.com); Charana theja Seshadri (charanatheja.s@hcl.com); charan syntel <CharanKumar_TupakulaVenkatesh@SYNTELINC.COM>; Desugari, Sasikala (sasikala.desugari@capgemini.com) (sasikala.desugari@capgemini.com); gopireddy kalli (kalligopireddy@gmail.com); Gopala Reddy, Venu (V.) <venu@ford.com>; gopireddy kalli (kalligopireddy@gmail.com); kusamnaveen@gmail.com; lankireddy.lakshmi@gmail.com; naveena.kallam@cgi.com; Ravindra, Reddy (C.) <rravind5@ford.com>; Seshadri, Sreekanth (Sreekanth_Seshadri@syntelinc.com); Challa, Tarakeswari <tarakeswari.challa@bankofamerica.com>; vivekanandarajud@zsl.com; Venugopal.Kusam@ust-global.com; Gopala Reddy, Venu (V.) <venu@ford.com>; yrprakash@gmail.com; subbareddy.l@eds.com
+
+
+S1TDF5-C6MMZ-ZTR7J-9R5GH-3652G
+
+So far the term 'greatest Dictator in world' was given to Hitler. Howerer from now onwards it shoul be given to Sonia Gandhi" She would well deserved this.
+
+
+
+  
+
+
+
+
+
+•Clustering
+•Mirroring
+•Backup and Recovery
+•AlwaysOn
+•Replication
+•Attaching/Detaching Databases
+•Migrating Databases
+•Database Mail
+•Creating, Managing and Migrating Users
+•Creating, Managing and Migrating Logins
+•SQL Authentication and Windows Authentication
+•Database Roles, User Roles
+•Contained Databases and Users
+•TDE and Encryption
+•Deadlocking
+•SQL Agent
+•System Databases
+•FileStream
+•FileTables
+•DBCC
+•SQL Trace
+•Auditing
+•SQLServer error log
+•SQLServer Agent error log
+•Remote Admin Access
+•Firewall Requirements
+•SSIS Security
+•Installing SSIS
+•Command Line Installs
+•Very basic DMV’s don’t go crazy on this topic
+•Creating and Maintaining Indexes
+•FillFactor
+•Windows System Resource Manager
+•Data Compression
+•Loading data (BCP, BulkInsert, OpenRowset
+
+
+C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\ReplData\unc\CTSINSRIVTPD_ADVENTUREWORKS_ADVENTURES_SAMPLE\20140116103211\'
+
+C:\Program Files\Microsoft SQL Server\MSSQL10.SQLEXPRESS\MSSQL\Binn\SQLAGENT.EXE" -i SQLEXPRESS
+
+105605
+106128
+
+
+D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\ReplData
+D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\Data
+D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\Data
+
+C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\ReplData
+C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Data
