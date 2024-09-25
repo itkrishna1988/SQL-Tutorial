@@ -1,0 +1,62 @@
+@startuml
+title DocD System Sequence Diagram for Event Tracking
+
+actor LOB as C
+participant "DC A3 L2 W9" as ComposeApps
+participant "Q9" as Q9
+participant "1MCS" as 1MCS
+participant "DocD" as DOCD
+participant "ICMP" as ICMP
+participant "ANG" as ANG
+participant "PDH" as PDH
+participant "RRD Internal IWCO Covius" as PV
+participant "SendSuit" as SendSuit
+participant "USPS" as USPS
+
+== Print Delivery Workflow==
+C -> ComposeApps: Print request
+C -> Q9: Print request
+
+alt Batch Composed (DC, A3, L2, W9, ComposeApps)
+    ComposeApps -[#FF4500]-->DOCD: Initiated & Composed
+else Kafka Composed(Q9)
+     1MCS -[#0000FF]-> DOCD: Initiated (docd.wfevents.initiated)
+     Q9 -[#0000FF]-> DOCD: Composed (docd.wfevents.composed)
+end
+ ICMP -[#0000FF]-> DOCD: Archived
+ PDH -[#FF4500]-->DOCD: Sent-to-pv
+ PDH -[#FF4500]-->PV: AFP Print file & IDX
+ PV -[#FF4500]-->PDH: Received & Reconciled
+ PDH -[#FF4500]-->DOCD: Received & Reconciled
+ PV -[#FF4500]-->PDH: Processed, Printed, Inserted & Mailed
+ PDH -[#FF4500]-->DOCD: Processed, Printed, Inserted & Mailed
+ PV -[#FF4500]-->PDH: Invoiced & Taxed
+ PDH -[#FF4500]-->DOCD: Invoiced & Taxed
+
+
+== Digital Delivery Workflow ==
+C -> 1MCS: Emailed Request
+
+    1MCS-[#0000FF]-> DOCD: Initiated (docd.wfevents.initiated)
+    1MCS -[#0000FF]-> DOCD: Composed (docd.wfevents.initiated)
+    1MCS -[#0000FF]-> ANG: EMAIL request
+    ANG-[#0000FF]-> DOCD: EMAILED, INBOX, PUSH, SMS (ci.alerts.feedback)
+
+== Handling Email Bounceback and Triggering Print Communication ==
+alt Email Bounceback
+    ANG -[#FF0000]-> 1MCS: Email Bounceback Notification
+    1MCS -[#FF0000]-> Q9: Email Failed, Trigger Print Communication
+    Q9 -[#FF4500]-> PDH: Batch New Print Composed Message
+    PDH -[#FF4500]-> DOCD: Sent-to-pv for Printing
+    PDH -[#FF4500]-> PV: AFP Print file & IDX
+    PV -[#FF4500]-> PDH: Received & Reconciled
+    PDH -[#FF4500]-> DOCD: Received & Reconciled
+    PV -[#FF4500]-> PDH: Processed, Printed, Inserted & Mailed
+    PDH -[#FF4500]-> DOCD: Processed, Printed, Inserted & Mailed
+end															  
+	
+== Postal Events via SendSuit ==
+USPS -> SendSuit: Download post office data
+SendSuit -> DOCD: Outbound, Inbound, Address Correction
+
+@enduml
