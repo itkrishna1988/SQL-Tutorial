@@ -59,4 +59,38 @@ end
 USPS -> SendSuit: Download post office data
 SendSuit -> DOCD: Outbound, Inbound, Address Correction
 
-@enduml
+@endumlThanks for the clarification! Based on the images you uploaded, here's a summary of the **DocD App Delivery Highlights**:
+
+---
+
+### **DocD App Delivery Highlights**
+
+1. **Auto ILD Autopay Setup Emails – Reconciliation**  
+   - Automate the generation and archiving of autopay confirmation emails.
+   - Ensure that bounce-back emails are identified, reconciled, and appropriately handled.
+   
+2. **Build & Migrate SBL Products to New Application Platform**  
+   - Migration of SBL products to a new modernized platform for handling loan-related communications, with a focus on simplifying processes for small businesses.
+
+3. **Auto Disaster Deferment Email – Compliance**  
+   - Automation of the disaster deferment email process, including archiving and delivery.
+   - Ensuring compliance with regulatory requirements through archiving and reconciliation.
+
+4. **CAS Create Branch USPS Disclosure Mailing**  
+   - USPS mailing for multiple recipients with branch support for both physical and digital disclosures.
+   - Compliance with USPS regulations for multiple services.
+
+5. **Cross-Channel Banker Platform Integration**  
+   - Consolidating data feed systems for customer communication from multiple sources into a unified platform.
+   - Aiming for streamlined communication and faster processing across different channels, including print and email.
+
+6. **POS Loan Servicing for New Products**  
+   - New POS loan products will be integrated into the DocD system, focusing on automating customer communication and ensuring that both current and prospective customers receive consistent service.
+
+---
+
+These highlights reflect a focus on automating email, reconciliation processes, compliance, and expanding the platform to integrate new products and USPS services. Let me know if you'd like any part expanded or further details!
+
+
+
+
