@@ -91,6 +91,87 @@ SendSuit -> DOCD: Outbound, Inbound, Address Correction
 
 These highlights reflect a focus on automating email, reconciliation processes, compliance, and expanding the platform to integrate new products and USPS services. Let me know if you'd like any part expanded or further details!
 
+a
+Sure! Here's a user story for the **DOCd Home Page** in Confluence:
 
+---
+
+### **User Story 1: Create DOCd Application Home Page**
+
+**Title**: Create a DOCd application homepage in Confluence for information dissemination and system overview.
+
+---
+
+#### **As a:**
+Product Owner / Team Member / User of the DOCd system
+
+#### **I want to:**
+Access a centralized, informative homepage in Confluence that provides all essential information about the DOCd application.
+
+#### **So that:**
+- I can understand how DOCd works, its key features, system architecture, workflows, and compliance processes.
+- I can easily find documentation, workflows, and diagrams relevant to DOCd.
+- Team members, stakeholders, and other users can access a single source of truth regarding the DOCd system.
+
+---
+
+### **Acceptance Criteria:**
+
+1. **Overview Section**:
+   - The DOCd home page should contain a high-level overview of the application, its purpose, and what problem it solves (event tracking, communication lifecycle management, and compliance).
+
+2. **Key Features Section**:
+   - List key features such as event tracking, multi-channel support, batch and stream processing, archiving, integration with vendors (USPS), bounce-back handling, etc.
+
+3. **System Architecture Section**:
+   - Provide a high-level system architecture overview in the form of a diagram (using Confluence’s built-in draw.io integration) showing how DOCd interacts with other systems (LOB, 1MCS, ComposeApps, USPS, etc.).
+
+4. **Workflow Diagrams**:
+   - Include at least two diagrams showcasing different workflows (e.g., digital email workflow and print communication workflow). The diagrams must be clear and explain how DOCd processes different communication channels.
+
+5. **Event Status Definitions**:
+   - Include a section that defines key event statuses such as Initiated, Composed, Emailed, Mailed, Archived, Failed, etc.
+
+6. **Integration Points**:
+   - Explain how DOCd integrates with internal systems (e.g., 1MCS, ICMP, ANG) and external vendors (e.g., USPS, IWCO) to facilitate communication.
+
+7. **Failure Handling (Bounce-back)**:
+   - Add a section that explains the bounce-back handling process and how DOCd transitions failed digital communications to the print channel.
+
+8. **Compliance and Archiving**:
+   - A section detailing how DOCd complies with regulatory requirements by archiving communication events, providing audit trails, and enforcing retention policies.
+
+9. **FAQs Section**:
+   - Provide a Frequently Asked Questions section to answer common user inquiries, such as how to initiate communication, track statuses, and handle bounce-back events.
+
+10. **Contact Information**:
+    - Provide up-to-date contact information for support, escalation, and other queries.
+
+11. **Resources and Documentation Links**:
+    - Ensure there are links to relevant resources, including user guides, technical documentation, API docs, and architecture diagrams.
+
+---
+
+### **Additional Notes:**
+
+- The homepage should be visually structured for easy navigation, with each section clearly labeled.
+- The page should be kept up to date with the latest system changes and workflow modifications.
+- Diagrams should be easy to read, and interactive where possible (e.g., embedding Confluence diagrams).
+- Provide quick access to resources such as documentation links and API references.
+- Consider adding a version history to the homepage to track updates.
+
+---
+
+### **Story Points/Complexity:**
+8 (Moderate complexity, requiring diagrams, collaboration across teams, and detailed documentation)
+
+---
+
+### **Priority:**
+High
+
+---
+
+By completing this user story, you’ll provide users, stakeholders, and team members with a comprehensive, easy-to-navigate page that offers all essential information about the DOCd application.
 
 
