@@ -172,6 +172,156 @@ High
 
 ---
 
-By completing this user story, you’ll provide users, stakeholders, and team members with a comprehensive, easy-to-navigate page that offers all essential information about the DOCd application.
+By completing this user story, you’ll provide users, stakeholders, and team members with a comprehensive, easy-to-navigate page that offers all essential information about the DOCd Year-End Performance Review
+
+Employee Name: [Your Name]
+
+Position: DocD Developer
+
+Team/Project: DocD, Customer Confidential Program (CCP), Wells Fargo
+
+1. Overview of Accomplishments
+
+Over the past year, I have successfully contributed to the success of various projects, particularly in the DocD and Customer Confidential Program (CCP) teams at Wells Fargo. I played a crucial role in developing, testing, and improving the DocD application, focusing on Kafka-based event-driven architectures, data management processes, and SQL optimizations. The following is a detailed account of my contributions and accomplishments:
+
+2. Key Responsibilities and Deliverables
+
+	1.	Kafka Event Schema Design & Implementation:
+	•	Achievement: I defined and implemented a Kafka event schema for producing event statuses for DocD. This schema captured the lifecycle events of documents, such as initiation, composition, printing, mailing, and archiving. I ensured that the schema was both flexible and scalable to accommodate various lifecycle event types.
+	•	Impact: Improved the visibility of document events in the system, making it easier for teams to track document status and event data, providing a robust framework for LOB (Line of Business) applications to consume.
+	2.	Batchless Process for Package Tracking:
+	•	Achievement: I modified multiple stored procedures to support the batchless process for tracking packages. These changes enabled the system to handle package-only processes while maintaining performance and data integrity.
+	•	Impact: Enhanced the DocD application’s ability to track package events efficiently, supporting better user experiences by allowing users to view events related to package processes such as recomposed, inbox, printed, and emailed events.
+	3.	Optimized SQL Data Deletion Process:
+	•	Achievement: I implemented an optimized data deletion process for Kafka Consumer and Producer tables, which had grown significantly. By introducing a batch deletion mechanism that deleted 100,000 records at a time, I ensured the process would not overwhelm SQL Server logs or impact performance.
+	•	Impact: Reduced table sizes and optimized server performance while maintaining data accuracy and ensuring no system slowdowns during the deletion process.
+	4.	Improvement of Monthly Invoice Exceptions:
+	•	Achievement: I investigated and resolved an issue where the DocD UI was incorrectly flagging all invoices as exceptions due to mismatched billing codes. I ensured accurate exception logging in the ReconExceptions table and corrected historical data to reflect the right invoice statuses.
+	•	Impact: Provided more accurate financial reporting and improved the team’s ability to track genuine invoice exceptions, minimizing the time spent resolving false positives.
+	5.	UI and Procedure Modifications for Package Events:
+	•	Achievement: During UAT testing, I proactively identified and addressed issues in UI procedures, such as docd-GET-PackageSearchData and docd-GET-PackageEventData, ensuring the proper handling of recomposed packages and document data at various lifecycle stages.
+	•	Impact: The UI improvements and back-end adjustments enhanced the end-user experience, streamlining the tracking and display of document events and statuses, improving the product’s reliability.
+
+3. Collaboration and Teamwork
+
+	•	Cross-Functional Collaboration: Throughout the year, I worked closely with various teams including QA, UAT, and business stakeholders. I took ownership of cross-team communication, ensuring that the Kafka events and related stored procedures met all requirements.
+	•	Mentorship: I provided guidance to team members during the integration of Kafka streams and batchless processing. This not only helped the team meet deadlines but also improved the team’s overall technical capabilities.
+
+4. Technical Innovation
+
+	•	Automation of Testing Processes: I led efforts to automate critical and smoke tests for the DocD system, using frameworks that ensured the system could be tested thoroughly and efficiently before deployment. These automated tests contributed to more reliable deployments and significantly reduced time spent on manual testing.
+	•	Logging and Error Handling Improvements: I improved the logging mechanisms across various systems, ensuring that we could quickly identify and address errors in real time. This led to faster issue resolution and more stable application performance.
+
+5. Problem Solving and Initiative
+
+I consistently demonstrated initiative in resolving complex problems before they became critical. For example, I identified the mismatched billing code issue in monthly invoicing, which would have caused significant downstream financial discrepancies had it not been addressed. My approach to problem-solving involved both technical fixes and collaboration with the relevant stakeholders to ensure long-term solutions were implemented.
+
+6. Areas of Growth and Development
+
+	•	Learning & Development: Over the year, I dedicated time to enhance my knowledge of event-driven architectures, especially Kafka, which was essential for the DocD application. I also focused on improving my SQL and database management skills to ensure the systems I worked on remained performant.
+	•	Taking Initiative: I proactively took on the responsibility of managing unassigned tasks and system improvements without waiting for user stories. This demonstrated my commitment to the team’s success and my initiative to improve processes wherever possible.
+
+7. Goals for the Upcoming Year
+
+	•	Further Optimization of Kafka Processes: I plan to continue improving the Kafka event streams, with a focus on optimizing throughput and minimizing latency in event consumption.
+	•	Advanced Automation: I aim to expand the scope of automation within the DocD system to include regression and performance testing, ensuring that the system is tested in real-world scenarios before production deployment.
+	•	Mentorship: I plan to take on more mentorship roles within the team, sharing my expertise in Kafka, SQL optimization, and testing automation with newer team members to ensure the team is equipped with the skills to handle complex challenges.
+
+8. Conclusion
+
+In summary, this year has been incredibly productive and impactful. I have contributed to key projects, optimized core processes, and made meaningful improvements to the DocD system. I am confident that my work has positively influenced the team and improved the system’s functionality and performance. I look forward to continuing to drive success and innovation in the coming year.
+
+Here’s a draft of your year-end performance review based on the previous work you’ve shared:
+
+Year-End Performance Review
+
+Name: [Your Name]
+Position: [Your Position]
+Year: 2024
+
+1. Overview of Key Accomplishments:
+
+Throughout the year, I have worked diligently across multiple teams and projects, ensuring effective communication, execution, and delivery of key objectives. Some notable accomplishments include:
+
+	•	Project Leadership: Led significant tasks for the DocD application, including working on the integration of various components such as Kafka topics, event tracking, and aligning it with Shoreview production requirements. I ensured smooth execution and transitions during our production and testing phases, addressing issues like policy failures and patching activities.
+	•	Collaborative Problem Solving: Demonstrated strong collaboration with teams like ASER, BO, and Lending Grid to solve integration and data migration challenges. For example, I coordinated with multiple teams to address issues in mapping fields for archived events and solved discrepancies in event data.
+	•	Process Optimization: Implemented enhancements to streamline existing processes, such as refining how DocD processes Archived events. This helped avoid duplicate event processing issues and improved overall system efficiency.
+	•	Documentation and Communication: Maintained detailed communication with key stakeholders to ensure clarity on project goals, progress, and roadblocks. This included simplifying complex scenarios (like bounce-back events and archived messages) into actionable insights for different teams.
+	•	Release Management: Played a key role in overseeing code merges and deployments for the August and September releases. I ensured that there were no conflicts between overlapping releases and that UAT deployments went smoothly.
+	•	Support for Teams: Actively supported various cross-functional teams, providing detailed analysis and ensuring proper onboarding processes for data access requirements. I worked closely with the platform team to provide secure and efficient access, as well as supported troubleshooting and patching tasks.
+
+2. Strengths Demonstrated:
+
+	•	Communication: Demonstrated clear, consistent communication with team members and stakeholders, ensuring that expectations were met, and any ambiguities were addressed swiftly.
+	•	Attention to Detail: Ensured precision in tasks related to data mapping, system requirements, and testing, especially in complex processes like event archiving and data migrations.
+	•	Problem-Solving: Showcased strong analytical skills when resolving issues related to database access, event schema changes, and production discrepancies.
+	•	Leadership: Took proactive steps to manage overlapping releases and provided clear direction to ensure efficient code merging, deployment, and project completion.
+
+3. Areas of Improvement:
+
+While I have made notable contributions this year, there are a few areas where I can further develop:
+
+	•	Advanced Technical Skills: I aim to enhance my SQL Server and SSIS development skills to lead more technically complex projects independently.
+	•	Project Prioritization: With many tasks running simultaneously, I will focus on improving project prioritization and time management to streamline multiple concurrent responsibilities.
+
+4. Goals for the Upcoming Year:
+
+	•	Develop Deeper Technical Expertise: Focus on strengthening my expertise in SQL Server development, SSIS, and database performance optimization to contribute more effectively to system-level improvements.
+	•	Process Automation: Work towards automating some of the manual processes in event tracking and reporting to further enhance efficiency and reduce dependency on human intervention.
+	•	Cross-functional Collaboration: Continue to improve collaborative efforts with cross-functional teams to ensure smoother, quicker decision-making and project delivery.
+
+In summary, this year has been an opportunity to deliver on important projects and collaborate across various teams and functions. I look forward to continuing this momentum and achieving even greater results in the upcoming year.
+
+
+Based on the context I have, here’s a draft of your year-end performance review for your appraisal:
+
+Year-End Performance Review
+
+Name: [Your Name]
+Role: [Your Role]
+Department: [Your Department]
+Date: [Date of Submission]
+
+Key Achievements:
+
+	1.	DocD Application Development and Support:
+	•	Played a key role in the development, implementation, and optimization of the DocD Application at Wells Fargo, an event-driven system used to manage the customer communication lifecycle, including email, print, and SMS communications.
+	•	Architected and improved Kafka Stream integrations to handle high-throughput events like initiated, composed, emailed, and print communications from various applications (DC, A3, L2, W9, 1MCS, ANG, etc.).
+	•	Developed a robust process for consuming print-initiated events through Kafka Topics and batch files, optimizing the flow for print vendor processing and postal events.
+	2.	Performance and Process Optimization:
+	•	Optimized existing stored procedures in SQL Server by consolidating MERGE statements into reusable code modules. This helped reduce redundancy, improved maintainability, and significantly boosted query performance.
+	•	Enhanced system performance by designing efficient data archiving strategies in the DocD application, specifically around email and print communications.
+	•	Worked on error-handling mechanisms, specifically implementing a process to reroute email bounce-backs to print communication, ensuring business continuity in customer communication.
+	3.	Technical Expertise and Contributions:
+	•	Deepened knowledge of technologies like SQL Server Enterprise Edition, Kafka, Avro Schemas, and Confluence, contributing to the overall system architecture.
+	•	Created architecture diagrams and UML sequence diagrams for the DocD application to map out the communication flows between different systems, improving cross-team understanding and alignment.
+	•	Actively contributed to the automation of documentation on Confluence, making information more accessible and streamlined for other team members.
+	4.	Collaboration and Leadership:
+	•	Actively collaborated with multiple teams and stakeholders, including development teams working on DC, A3, L2, W9, and Q9 applications, as well as external vendors for print and postal services.
+	•	Demonstrated strong project management skills by consistently meeting deadlines, particularly during high-priority initiatives, ensuring that the DocD application functioned seamlessly in production environments.
+	•	Played a pivotal role in troubleshooting critical incidents, including addressing database deadlocks and optimizing SQL queries to ensure minimal downtime.
+	5.	Initiatives and Innovations:
+	•	Proactively worked on migrating various batch processes to more efficient Kafka Stream-based processing, reducing processing times and system load.
+	•	Took the initiative to redesign the DocD homepage in Confluence, enhancing internal documentation and improving user experience for team members and stakeholders.
+
+Areas for Improvement:
+
+	•	Continue to enhance skills in cloud-based technologies (e.g., MongoDB licensing and cloud deployment strategies) to broaden the scope of solutions provided to the team.
+	•	Explore opportunities for more automation in repetitive tasks, especially in monitoring and error recovery for batch and stream communications.
+
+Goals for the Next Year:
+
+	1.	Further improve system performance by implementing advanced indexing strategies and SQL query optimizations.
+	2.	Lead the initiative to scale the DocD system for larger data volumes, possibly leveraging cloud-native technologies.
+	3.	Take ownership of cross-functional training sessions to help onboard new team members to the DocD system and related technologies.
+
+Closing Thoughts:
+
+This year, I have made significant contributions to the success of the DocD application and its seamless integration with other systems. I look forward to building on these achievements, continuing to deliver high-quality work, and driving innovative solutions in the upcoming year.
+
+As a DocD application lead and lead software engineer LSE I done this work  I will share my goals please help me to write year end self appraisal 
+
+
+
 
 
