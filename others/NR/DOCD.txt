@@ -319,9 +319,171 @@ Closing Thoughts:
 
 This year, I have made significant contributions to the success of the DocD application and its seamless integration with other systems. I look forward to building on these achievements, continuing to deliver high-quality work, and driving innovative solutions in the upcoming year.
 
-As a DocD application lead and lead software engineer LSE I done this work  I will share my goals please help me to write year end self appraisal 
+As a DocD application lead and lead software engineer LSE I done this work  I will share my goals please help me to write year end self To create a DOCd home page in Confluence, you’ll want to include key details that provide a clear, informative overview of the system for users, stakeholders, and team members. Here’s a guide on what details you can mention and how to structure the content for the DOCd home page:
+
+DOCd Application Home Page
+
+1. Introduction/Overview
+
+Provide a brief introduction to the DOCd application. Explain its purpose and high-level functionality.
+
+Example:
+
+DOCd Overview:
+
+DOCd is an event-driven system designed to archive and track customer communication lifecycle metadata across multiple channels (email, SMS, print, etc.). It ensures regulatory compliance, accurate archiving, and seamless integration with different business applications like ComposeApps, ICMP, and external partners (USPS, IWCO).
+
+DOCd plays a critical role in capturing the status of events, managing both digital and physical delivery channels, and providing real-time status updates for various lifecycle events such as initiated, composed, printed, emailed, and mailed.
+
+2. Key Features
+
+Highlight the main features and functionalities that DOCd provides. This section should showcase the system’s strengths.
+
+Example:
+
+Key Features:
+
+	•	Event Tracking: Track the entire lifecycle of customer communication from initiation to delivery.
+	•	Batch and Stream Processing: Supports both batch and real-time data processing for communication events.
+	•	Archival: Archives communication events, metadata, and relevant documents for compliance.
+	•	Multi-Channel Support: Handles digital (email, SMS) and physical (print, postal mail) communication channels.
+	•	Integration: Integrates seamlessly with other Wells Fargo systems, external vendors (e.g., USPS), and delivery platforms.
+	•	Bounce-back Handling: Automatically processes bounce-backs and failed emails, converting them to print communication workflows.
+
+3. System Architecture
+
+Provide a high-level overview of the system architecture. You can use diagrams or bullet points to explain how the components are connected.
+
+Example:
+
+System Architecture:
+
+DOCd integrates various systems and vendors to ensure smooth communication workflows. Key components include:
+
+	•	LOB (Line of Business): Initiates communication requests.
+	•	ComposeApps/Q9: Composes print/digital content and initiates event tracking.
+	•	1MCS: Manages the workflow and integration with external systems (ANG, USPS).
+	•	PDH (Print Data Hub): Manages the printing process and reconciliation with external vendors.
+	•	ANG (Email & SMS Service): Sends email and SMS notifications and manages delivery failures.
+	•	ICMP: Archives documents and metadata for compliance and regulatory purposes.
+
+![System Architecture Diagram] (Insert architecture diagram or Confluence draw.io diagram link here)
+
+4. Workflow Diagrams
+
+If relevant, include diagrams to show the communication workflow. You can provide separate workflows for batch communication, real-time streaming, or digital and physical workflows.
+
+Example:
+
+Communication Workflows:
+
+	1.	Batch Communication Workflow:
+	•	LOB initiates a request → ComposeApps prepares content → Q9 batches the request → PDH handles printing and delivery.
+	2.	Digital Communication Workflow:
+	•	LOB sends a request → 1MCS handles initiation and composition → ANG sends emails/SMS notifications → DOCD logs status.
+
+(Embed diagrams using draw.io in Confluence for clarity.)
+
+5. Event Status Definitions
+
+Explain the different event statuses that DOCd manages. This will help users understand the system’s terminology and processes.
+
+Example:
+
+Event Status Definitions:
+
+	•	Initiated: Communication request is initiated but not yet processed.
+	•	Composed: Content has been prepared and is ready for delivery.
+	•	Emailed: Communication has been sent via email.
+	•	Mailed: Physical communication has been printed and mailed.
+	•	Archived: Communication event and associated content have been archived for compliance.
+	•	Failed: Email or SMS delivery failed and requires further action (e.g., convert to print communication).
+
+6. Integration Points
+
+Outline the key integration points with other systems and external vendors.
+
+Example:
+
+Integration Points:
+
+	•	1MCS: Handles workflow management and orchestrates communication across systems.
+	•	USPS: Manages the postal service delivery of printed communications.
+	•	SendSuit: Downloads post office data and handles address corrections.
+	•	ICMP: Archives documents and event data for compliance and retrieval.
+	•	ANG: Manages email and SMS delivery for digital communication channels.
+
+7. Failure Handling (Bounce-back Process)
+
+Provide details about how the system handles communication failures such as email bounce-backs and how it transitions to print communication.
+
+Example:
+
+Bounce-back Handling:
+
+If an email fails or bounces back, DOCd automatically transitions the communication to the print workflow. The steps involved are:
+
+	1.	Bounce-back Detection: ANG identifies the email bounce-back and sends failure data to 1MCS.
+	2.	Transition to Print: 1MCS relays the data to Q9 for batch processing.
+	3.	Print Workflow: Q9 batches the request and sends it to PDH for printing and mailing.
+	4.	Tracking: The status of the print communication is updated in DOCd, ensuring end-to-end traceability.
+
+8. Compliance and Archiving
+
+Provide details on how DOCd ensures compliance with regulations and manages archival processes.
+
+Example:
+
+Compliance and Archiving:
+
+	•	Document Archival: All communication events and metadata are archived in ICMP for regulatory compliance.
+	•	Audit Trails: DOCd provides complete audit trails for each communication event, ensuring accountability.
+	•	Retention Policy: Data retention policies are enforced based on business requirements and regulatory needs.
+
+9. Frequently Asked Questions (FAQs)
+
+Provide a section for common questions that users may have.
+
+Example:
+
+FAQs:
+
+	•	Q: How do I initiate a new communication request?
+A: Use the LOB portal or API to submit communication requests to ComposeApps or 1MCS.
+	•	Q: How do I track the status of a communication?
+A: The DOCd dashboard allows you to track communication statuses like Initiated, Composed, Emailed, Mailed, and Archived.
+	•	Q: What happens if an email fails to deliver?
+A: The system automatically transitions the communication to print if an email bounces back.
+
+10. Contact Information
+
+Provide relevant contact details for support, escalation, or queries.
+
+Example:
+
+Contact Information:
+
+	•	Support Team: support@docd.example.com
+	•	Escalation: escalation@docd.example.com
+	•	Product Owner: [Name] (email@domain.com)
+
+11. Resources and Documentation
+
+Link to any relevant resources or documentation, such as technical specs, API docs, or user manuals.
+
+Example:
+
+Resources:
+
+	•	User Guide
+	•	Technical Architecture
+	•	API Documentation
+
+With this structure, you’ll provide a comprehensive and user-friendly DOCd homepage in Confluence. Adjust the details based on your specific DOCd system’s needs and configurations.
 
 
+
+abc
 
 
 
