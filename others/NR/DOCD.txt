@@ -479,11 +479,14 @@ Resources:
 	•	Technical Architecture
 	•	API Documentation
 
-With this structure, you’ll provide a comprehensive and user-friendly DOCd homepage in Confluence. Adjust the details based on your specific DOCd system’s needs and configurations.
+DocD built a robust framework for digital failure handling, enabling efficient tracking and resolution of bounce-back events across customer communication lifecycles. Its reliable metadata-driven approach ensures seamless recovery, and with its scalable architecture, more lines of business are leveraging DocD to manage bounce-back flows and improve operational efficiency.
 
 
 
-abc
+With this structure, you’ll provide a comprehensive and user-friendly DOCd homepage in Confluence. Adjust the details based on your specific DOCd system’s needs and configurations.DocD built a robust framework for handling Statement Ready Notifications (SRN), ensuring timely and accurate communication to customers when their statements are available online for viewing. By leveraging its metadata-driven system, DocD ensures seamless notification delivery and quick resolution of any issues. Its scalable and reliable architecture has enabled more lines of business to adopt DocD for managing SRN processes efficiently.
+
+
+
 
 
 
