@@ -481,12 +481,76 @@ Resources:
 
 DocD built a robust framework for digital failure handling, enabling efficient tracking and resolution of bounce-back events across customer communication lifecycles. Its reliable metadata-driven approach ensures seamless recovery, and with its scalable architecture, more lines of business are leveraging DocD to manage bounce-back flows and improve operational efficiency.
 
-
+ 
 
 With this structure, you’ll provide a comprehensive and user-friendly DOCd homepage in Confluence. Adjust the details based on your specific DOCd system’s needs and configurations.DocD built a robust framework for handling Statement Ready Notifications (SRN), ensuring timely and accurate communication to customers when their statements are available online for viewing. By leveraging its metadata-driven system, DocD ensures seamless notification delivery and quick resolution of any issues. Its scalable and reliable architecture has enabled more lines of business to adopt DocD for managing SRN processes efficiently.
 
+Epic Title:
+
+DocD Application Data Center Migration & Platform Modernization
+
+⸻
+
+Epic Description:
+
+As part of infrastructure modernization and strategic alignment with enterprise standards, the DocD application will undergo a comprehensive data center migration. This initiative includes:
+	•	SQL Server Upgrade: Migrating from SQL Server 2017 to SQL Server 2022
+	•	Windows OS Upgrade: Transitioning from Windows Server 2016 to the latest approved OS version
+	•	Data Storage Migration: Moving NAS (Network Attached Storage) to new data center storage
+	•	File Transfer Modernization: Migrating NDM (Network Data Mover) processes to the new environment
+	•	Data Center Move: Shifting compute and storage footprint to the newly provisioned data center, ensuring high availability and resiliency.
+
+This Epic will ensure DocD meets performance, scalability, and security standards required for long-term sustainability and compliance.
+
+⸻
+
+Scope of Work:
+	1.	SQL Server Modernization
+	•	Build SQL Server 2022 (FCI + Always On AG) in the new data center
+	•	Migrate all databases from SQL Server 2017 to SQL Server 2022
+	•	Validate Always On Availability Groups with automatic failover and read-intent routing
+	2.	Windows Upgrade
+	•	Provision application and database servers with latest approved Windows OS
+	•	Perform compatibility testing and remediation as needed
+	3.	NAS Migration
+	•	Identify and copy all DocD-related NAS data to new storage
+	•	Update all file paths in applications and ETL jobs
+	4.	NDM Migration
+	•	Reconfigure all NDM endpoints and channels in the new environment
+	•	Coordinate with upstream/downstream partners for data movement validation
+	5.	Testing & Cutover
+	•	Complete functional, performance, integration, and DR testing
+	•	Plan and execute final cutover with rollback plan
+	6.	Documentation & Compliance
+	•	Update architecture diagrams, SOPs, and control documents
+	•	Ensure compliance with Cyber, SDLC, and Change Management policies
+
+⸻
+
+Benefits:
+	•	Improved performance and security with SQL 2022 and latest OS
+	•	Aligned with enterprise standards for platform lifecycle
+	•	Enhanced availability and disaster recovery capabilities
+	•	Reduction in legacy tech debt
+
+⸻
+
+Stakeholders:
+	•	App Owner / Tech Lead: Krishna Reddy Lankireddy
+	•	DBA Team
+	•	Infrastructure & Storage Team
+	•	Information Security
+	•	Business Stakeholders
+	•	NDM Coordination Team
+
+⸻
+
+Target Completion: Q3 2025
+
+Would you like a JIRA-style breakdown with epics/stories/tasks as well?
 
 
 
 
 
+a
