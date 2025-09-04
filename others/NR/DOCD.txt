@@ -550,6 +550,205 @@ Target Completion: Q3 2025
 Would you like a JIRA-style breakdown with epics/stories/tasks as well?
 
 
+h2. Database Migration – Detailed Steps
+
+The following steps outline the end-to-end process for SQL Server 2017 → 2022 migration in NGDC:
+
+# *Onboard Request*  
+  * Submit migration request in ServiceNow/Jira for NGDC DB onboarding  
+  * Capture application details, DB size, SLAs, RTO/RPO requirements  
+
+# *Servers Build*  
+  * Provision SQL 2022 servers in NGDC (Dev, IST, UAT, Prod)  
+  * Configure storage (NAS/SAN) and networking  
+
+# *Servers Validation*  
+  * Validate SQL version, patches, collation, and default settings  
+  * Validate connectivity from app servers and batch servers  
+  * Security baseline validation (TLS, certificates, firewall rules)  
+
+# *Logins Synchronization*  
+  * Sync SQL logins, users, and permissions from heritage environment  
+  * Validate orphaned users and fix mappings  
+
+# *AG Creation*  
+  * Configure Always On Availability Group with replicas (Virginia ↔ Texas)  
+  * Validate synchronous commit between PD1/PF1 and PM1/PS1 pairs  
+  * Configure read-only routing  
+
+# *Database Restore*  
+  * Restore databases from heritage SQL 2017 to SQL 2022 NGDC servers  
+  * Apply post-restore steps (permissions, jobs, linked servers, synonyms)  
+
+# *AMA Workflows (for AG replicas switchover)*  
+  * Automate replica failover/switchover using AMA workflows  
+  * Validate role changes and listener availability  
+
+# *Onboard to Observability*  
+  * Integrate with AppDynamics for performance monitoring  
+  * Enable Grafana dashboards for DB health & latency metrics  
+
+# *Onboard to Liquibase & Harness*  
+  * Setup DB schema change automation using Liquibase  
+  * Integrate with Harness pipelines for CI/CD deployments  
+
+# *Create Files & Streams Sync Pipelines*  
+  * Setup sync pipelines between Heritage DC and NGDC for:  
+   ** Files (via NDM/Robocopy/SnapMirror)  
+   ** Kafka/Streams pipelines for messaging  
+
+# *Update CNAMEs*  
+  * Update CNAME records for DB listeners in *Dev, IST, UAT*  
+
+# *Update Connection Strings*  
+  * Update application UI and ETL connection strings in *Dev, IST, UAT*  
+  * Validate with smoke tests  
+
+# *Cutover Dev*  
+  * Switch Dev applications to NGDC DB  
+  * Validate app functionality and DB workload  
+
+# *Cutover IST*  
+  * Switch IST environment to NGDC DB  
+  * Validate Autosys, SSIS, NDM, and NAS dependencies  
+
+# *Cutover UAT*  
+  * Switch UAT environment to NGDC DB  
+  * Run end-to-end testing with business users  
+  * Capture UAT signoff  
+
+# *Final Prod Parallel Run*  
+  * Run heritage SQL 2017 and NGDC SQL 2022 in parallel  
+  * Compare workloads, validate replication, latency, and jobs  
+
+# *Final Production Cutover*  
+  * Switch Production workloads to NGDC SQL 2022  
+  * Disable heritage SQL 2017 DBs post-validation  
+  * Update monitoring, backups, and DR runbooks  
+
+
+
+
+===============================
+
+
+h1. NGDC Migration Program
+
+This page captures the *Next-Gen Data Center (NGDC) Migration* activities covering:
+* Database Deployment & SQL Server Upgrade (2017 → 2022)
+* NAS Migration
+* SSIS Package Migration
+* Autosys Migration
+* NDM Migration
+
+The objective is to ensure *seamless migration* to the new infra with *minimal downtime* and *clear visibility* across all phases (Dev → IST → UAT → Prod).
+
+---
+
+h2. 1. New Infrastructure Details
+
+* *SQL Server Version:* 2022 Enterprise Edition
+* *Always On Availability Group (AG):* Multi-DC (Virginia + Texas)
+* *Primary Site:* Virginia (PD1 & PF1)
+* *DR Site:* Texas (PM1 & PS1)
+* *Storage:* NAS Migration from legacy SAN to enterprise NAS (NetApp / Dell EMC)
+* *Job Scheduler:* Migration from legacy Autosys to NGDC Autosys platform
+* *File Transfers:* Migration from legacy NDM to NGDC NDM cluster
+* *ETL Tools:* Migration from SSIS 2017 to SSIS 2022 execution framework
+
+---
+
+h2. 2. Workstreams
+
+h3. 2.1 Database Deployment (SQL Server 2017 → 2022)
+* Environment provisioning (Dev, IST, UAT, Prod)
+* Database backups & restores
+* Availability Group configuration (multi-site sync/async)
+* Read-only routing configuration
+* Cutover & Post-Migration validation
+
+h3. 2.2 NAS Migration
+* Inventory of applications using legacy NAS
+* Data copy strategy (rsync/robocopy/SnapMirror)
+* Cutover planning (low downtime migration)
+* Post-validation (MD5 checksum, application validation)
+
+h3. 2.3 SSIS Migration
+* Inventory of SSIS packages
+* Deploy to SSISDB (SQL 2022)
+* Validate connections, credentials, and security
+* Performance benchmarking in IST/UAT
+* Production cutover with rollback plan
+
+h3. 2.4 Autosys Migration
+* Job inventory extraction (from legacy Autosys)
+* Job definition migration to NGDC Autosys
+* Dry-run in Dev/IST
+* Parallel run validation in UAT
+* Production switchover
+
+h3. 2.5 NDM Migration
+* File transfer flow analysis
+* Update endpoints in NGDC NDM cluster
+* Parallel run for critical flows
+* Performance/throughput testing
+* Production cutover with rollback
+
+---
+
+h2. 3. Migration Plan & Timelines
+
+|| Phase || Activities || Timeline || Owner || Status ||
+| *Dev* | Provision infra, baseline deployments, connectivity validation | Week 1-2 | Infra + DB Team | {status:complete} |
+| *IST* | SQL deployment, SSIS package migration, Autosys job migration dry-run | Week 3-4 | DB + App Teams | {status:in-progress} |
+| *UAT* | End-to-end testing (DB, NAS, SSIS, Autosys, NDM) with business sign-off | Week 5-6 | App + Business Teams | {status:planned} |
+| *Prod* | Production cutover (phased migration over weekends) | Week 7-8 | Infra + App Teams | {status:planned} |
+
+---
+
+h2. 4. WIP Tracker
+
+|| Task || Description || Owner || Status || ETA ||
+| SQL Server Migration (2017 → 2022) | DB deployments in Dev & IST | DBA Team | {status:complete} | – |
+| SSIS Migration | Package migration & validation | ETL Team | {status:in-progress} | 09-Sep |
+| Autosys Migration | Job conversion & testing | Scheduling Team | {status:planned} | 20-Sep |
+| NDM Migration | File transfer validation | Infra Team | {status:planned} | 25-Sep |
+| NAS Migration | Data cutover to NGDC NAS | Storage Team | {status:planned} | 30-Sep |
+
+---
+
+h2. 5. AVI Updates
+
+* *Avi Load Balancer* will be updated for:
+** SQL Read/Write Listener (docd-gob-dbw)
+** SSIS package execution endpoints
+** Autosys job schedulers
+** NDM transfer endpoints
+* Change tickets raised:
+** *CHG123456* – AVI updates in IST
+** *CHG123789* – AVI updates in Prod
+
+---
+
+h2. 6. Risks & Mitigations
+
+|| Risk || Impact || Mitigation ||
+| Cross-state latency during read routing | Performance degradation | Prioritize local sync replica for read-only routing |
+| SSIS package connection failures | Job failures post-migration | Validate all connection managers before cutover |
+| Autosys job dependency mismatches | Failed job runs | Dry-run in IST & UAT with parallel execution |
+| Large NAS data cutover window | Downtime for apps | Use SnapMirror + incremental sync approach |
+
+---
+
+h2. 7. Approvals
+
+* *DB Migration:* Approved by DBA Lead {status:complete}
+* *NAS Migration:* Storage Team Signoff {status:planned}
+* *SSIS Migration:* ETL Team Signoff {status:in-progress}
+* *Autosys Migration:* Scheduling Lead {status:planned}
+* *NDM Migration:* Infra Lead {status:planned}
+
+
 
 
 
