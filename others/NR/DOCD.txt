@@ -750,6 +750,160 @@ h2. 7. Approvals
 
 
 
+h1. DOCD NGDC Migration Plan
+
+This page captures the end-to-end NGDC migrations for DOCD across five components:
+* Database (SQL Server 2017 → 2022)
+* SSIS
+* NAS
+* Autosys
+* NDM
+
+h2. 1) Program Overview
+* Goal: Seamless migration to NGDC with minimal downtime and clear rollout across DEV → IST → UAT → PROD.
+* Tracking: Enterprise Agile Jira (QGJK-34xxx series)
+* Observability: AppDynamics, Grafana
+* Change Mgmt: ServiceNow CHG tickets per environment & component
+
+h2. 2) Master Timeline (All Components)
+
+|| Environment || Planned Cutover || Status || Notes ||
+| DEV | <add date> | {status:in-progress} | Smoke tests + connectivity |
+| IST | <add date> | {status:planned} | Middleware alignment |
+| UAT | <add date> | {status:planned} | Business signoff |
+| PROD (Parallel) | <add date> | {status:planned} | Read-only checks, jobs |
+| PROD (Final) | <add date> | {status:planned} | Freeze + cutover weekend |
+
+----
+
+{expand:title=Component A — Database Migration (SQL Server 2017 → 2022)}
+h3. A.1 Infrastructure Grid (Latest)
+
+|| Environment || Database Instance || Servers || AG Name || DB Read-only Connection || DB Read/Write Connection || Data Center ||
+| DEV | dds1356v019004\DS135611 | dds1356v019004 | N/A | N/A | N/A | *Sterling* |
+| IST | dss1356v019309\DS135611 | dss1356v019309 | N/A | N/A | N/A | *Sterling* |
+| UAT | dus1356av018811\DS135611 | dus1356av018811 | AG_DWJG1356L01 | DWJG1356L01.ent.wfb.bank.corp,11001 | N/A | *Sterling* |
+| PROD/BCP | dum1356av027909\UM1356A1 | dum1356av027909 | AG_DWP1356A1 | DWPG1356L01.ent.wfb.bank.corp,11001 | N/A | *Manassas* |
+| PROD/BCP | dps1356av044101\PS1356A1 | dps1356av044101 | AG_DWP1356A1 | DWPG1356L01 | N/A | *Sterling* |
+| PROD/BCP | dpm1356av049032\PM1356A1 | dpm1356av049032 | DWP1356L01 | DWPG1356L01 | N/A | *Manassas* |
+| PROD/BCP | dpr1356av042851\PR1356A1 | dpr1356av042851 | — | — | — | *Lewisville* |
+| PROD/BCP | dpd1356av010277\PD1356A1 | dpd1356av010277 | — | — | — | *Garland* |
+
+*Note:* Replace any entry that differs from the grid with the exact value from your inventory.
+
+h3. A.2 Detailed Steps (Runbook)
+# *Onboard Request* → Create intake (SLA/RTO/RPO, DB sizes, contacts).
+# *Servers Build* → Provision SQL 2022 (DEV/IST/UAT/PROD), storage and networking.
+# *Servers Validation* → Patching, collation, instance config, TLS/certs, firewall, connectivity.
+# *Logins Synchronization* → Logins/users/permissions; fix orphaned users.
+# *AG Creation* → Multi-DC AG; PD1↔PF1 (Virginia) sync, PM1↔PS1 (Texas) sync; cross-site async.
+# *Database Restore* → Full + diffs + logs; post-restore objects (jobs, links, synonyms).
+# *AMA Workflows* → Automate replica role swap/switchover; validate listener.
+# *Observability Onboarding* → AppDynamics & Grafana dashboards/alerts.
+# *Liquibase + Harness* → CI/CD for schema changes; env vars & approvals.
+# *Files & Streams Sync* → Heritage↔NGDC pipelines for files (NDM/Robocopy/SnapMirror) and streams (Kafka where applicable).
+# *CNAME Updates* → DEV/IST/UAT DB listeners.
+# *Connection Strings* → Update UI + ETL in DEV/IST/UAT; smoke tests.
+# *Cutovers* → DEV → IST → UAT; then PROD parallel run → final cutover.
+
+h3. A.3 Read-Only Routing (Prod AG)
+*Primary in Virginia (PD1/PF1)* → route: local sync partner → Texas async replicas.  
+*Primary in Texas (PM1/PS1)* → route: local sync partner → Virginia async replicas.
+
+h3. A.4 Checklists (per environment)
+- [ ] Backups validated and restores tested
+- [ ] AG healthy; automatic seeding complete
+- [ ] Jobs migrated & disabled on heritage post-cutover
+- [ ] App smoke tests green; AppD baseline captured
+- [ ] DR failover test scheduled/recorded
+{expand}
+
+----
+
+{expand:title=Component B — SSIS Migration}
+h3. B.1 Scope & Inventory
+|| Project || Source Instance || Target Instance (SSISDB 2022) || Deployed? || Owner || Status ||
+| <proj> | <2017 server> | <2022 server> | Yes/No | <name> | {status:in-progress} |
+
+h3. B.2 Steps
+# Extract package inventory; remove unused.
+# Update *Connection Managers* (new listeners/CNAMEs, credentials, encryption).
+# Migrate to *SSISDB* on SQL 2022; create *Environments* and *References*.
+# Configure Agent proxies/creds; deploy via *Harness* pipeline.
+# Functional tests in DEV → IST; performance & concurrency tests in UAT.
+# Switch Autosys/SQL Agent schedules to NGDC; decommission heritage jobs.
+
+h3. B.3 Validation
+* Execution logs clean, expected durations met
+* Data parity checks with heritage
+* AppDynamics metrics stable/improved
+{expand}
+
+----
+
+{expand:title=Component C — NAS Migration}
+h3. C.1 Inventory
+|| Share/Path || Size || Source NAS || Target NAS || Consumer App || Owner || Cutover Window || Status ||
+| <\\old\path> | <size> | <name> | <name> | <app> | <owner> | <date/time> | {status:planned} |
+
+h3. C.2 Steps
+# Discovery (paths, perms, SMB/NFS, consumers).
+# Baseline copy (SnapMirror/robocopy) → incremental syncs.
+# Permissions & service accounts review; update mounts on app/batch hosts.
+# Final delta cut + validation (MD5/file count/last-write timestamps).
+# Update configs & documentation; disable heritage exports.
+
+h3. C.3 Validation
+* File counts/hash spot checks
+* App read/write tests
+{expand}
+
+----
+
+{expand:title=Component D — Autosys Migration}
+h3. D.1 Inventory
+|| Job || Type || Schedule || Dependencies || Owner || Status ||
+| <job> | Box/Command/FileWatcher | <cron/cal> | <precedence> | <name> | {status:planned} |
+
+h3. D.2 Steps
+# Export JIL from heritage; normalize calendars/machines/queues.
+# Map DB, SSIS, file paths to NGDC endpoints.
+# DEV/IST dry-run; UAT parallel run with business signoff.
+# PROD: freeze window, migrate, lift hold, and monitor.
+{expand}
+
+----
+
+{expand:title=Component E — NDM Migration}
+h3. E.1 Inventory
+|| Flow || Partner/Node || Protocol/Port || Volume || Schedule || Owner || Status ||
+| <flow> | <partner> | <proto/port> | <GB/day> | <cron> | <name> | {status:planned} |
+
+h3. E.2 Steps
+# Register processes/PNODE/SNODE on NGDC; certs/keys; firewall rules.
+# Create new Process/Copy steps; test DEV/IST with checksums.
+# UAT parallel run; throughput SLA verification.
+# PROD cutover; disable heritage and archive scripts.
+{expand}
+
+----
+
+h2. Risks & Mitigations
+|| Risk || Impact || Mitigation ||
+| Cross-site latency for reads | User-perceived slowness | Prefer local sync in read routing; pin analytics to RO listener |
+| Package connection drift | ETL failures | Centralize secrets; env parameters; pre-cutover validation |
+| NAS final delta overruns | Extended outage | Multiple incrementals; widen freeze window |
+| Autosys dependency gaps | Job failures | End-to-end rehearsal in UAT; peer review of JIL |
+| NDM certificates/firewall | Transfer failures | Early cert exchange; pre-approved firewall changes |
+
+h2. Approvals
+* Database: {status:in-progress}
+* SSIS: {status:planned}
+* NAS: {status:planned}
+* Autosys: {status:planned}
+* NDM: {status:planned}
+
+h2. Change Log / AVI Updates
+* Weekly AVI summary posted here; link Jira QGJK-34xxx items.
 
 
-a
