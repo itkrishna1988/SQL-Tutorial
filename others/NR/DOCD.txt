@@ -566,4 +566,26 @@ Areas for Improvement:
 	•	Needs to work on reducing scope churn mid-sprint by clarifying requirements earlier with stakeholders. This will give engineers fewer surprises and increase team velocity.
 	•	Encourage more end-user empathy by bringing customer/operations perspectives into backlog grooming, not just compliance and technical requirements. This could unlock hidden value for the business.
 
+Use Case 1: SSIS to Apache Spark Migration for OpenShift (OCP)
+
+Use Case Description
+Accelerate the migration of DocD SSIS ETL workflows to Apache Spark running on OpenShift (NGDC) by using Devin to understand existing SSIS packages, PowerShell orchestration, SQL dependencies, and business logic, then assist in developing equivalent PySpark implementations.
+
+High-Level Objective
+There is no mature automated migration solution available to convert enterprise SSIS workloads to Apache Spark. Devin will be used to analyze complex SSIS control flows, data flows, transformations, stored procedure interactions, and cross-repository dependencies, enabling faster and more accurate development of equivalent PySpark pipelines while preserving business functionality.
+
+Business & Financial Benefit
+Enable DocD’s migration from Windows VM-based SSIS infrastructure to cloud-native OpenShift, improving resilience, scalability, and operational flexibility. Reduce infrastructure and licensing costs associated with Windows/SSIS, remove dependency on a legacy technology with limited future investment, and adopt Apache Spark, which better supports modern high-volume data processing and streaming use cases such as Kafka integration.
+
+Use Case 2: Database Modernization, Archive Platform, and Automated Testing
+
+Use Case Description
+Accelerate the modernization of DocD by implementing automated testing for SQL Server business logic and supporting the archival of historical communication metadata from the operational database to a dedicated archive platform while preserving record retention and compliance requirements.
+
+High-Level Objective
+DocD is a high-data-intensity system of record for enterprise customer communication tracking, with significant business logic implemented in SQL Server stored procedures. The platform currently has limited automated testing for database objects, and all operational and historical metadata resides in a single database. Devin will be used to understand existing database business logic, generate unit and regression test suites, analyze dependencies, and assist in designing and implementing archival workflows that move eligible data to a dedicated archive platform based on enterprise records retention schedules while maintaining business continuity. As part of the modernization journey, Devin will also support the gradual decomposition of database-centric business logic into reusable microservices.
+
+Business & Financial Benefit
+Improve release quality through automated database testing, reduce manual validation effort, and minimize production defects. Optimize operational database size and performance by moving historical data to a compliant archive platform, reducing storage growth and improving query efficiency. Enable a lower-risk modernization path toward a scalable microservices architecture while continuing to meet enterprise records management and regulatory compliance requirements.
+
 
