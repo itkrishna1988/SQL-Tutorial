@@ -588,4 +588,165 @@ DocD is a high-data-intensity system of record for enterprise customer communica
 Business & Financial Benefit
 Improve release quality through automated database testing, reduce manual validation effort, and minimize production defects. Optimize operational database size and performance by moving historical data to a compliant archive platform, reducing storage growth and improving query efficiency. Enable a lower-risk modernization path toward a scalable microservices architecture while continuing to meet enterprise records management and regulatory compliance requirements.
 
+Senior Lead Data & Integration Engineer (15+ Years)
 
+Experience
+
+* 15+ years of experience in enterprise application development and data engineering.
+* Banking and Financial Services domain experience (preferred).
+* Experience working in large enterprise environments with mission-critical applications.
+
+Mandatory Technical Skills
+
+Data Engineering & ETL
+
+* SQL Server (2017/2022)
+* SSIS Development and Administration
+* Complex ETL Design
+* Stored Procedures
+* Performance Tuning
+* Partitioning
+* Index Optimization
+* Query Optimization
+* SQL Server Always On Availability Groups
+* Database Migration
+* Data Archiving & Retention
+
+Big Data & Modern Data Platform
+
+* Apache Spark
+* PySpark
+* Databricks
+* Delta Lake
+* Azure Data Factory (ADF)
+* Data Lake Architecture
+* Medallion Architecture
+
+Messaging & Event Streaming
+
+* Apache Kafka
+* Avro Schema
+* Kafka Producers & Consumers
+* Event-Driven Architecture
+* Kafka Performance Tuning
+* Schema Registry
+
+Java Development
+
+* Java 17+
+* Spring Boot
+* REST APIs
+* Microservices
+* Maven
+* JUnit
+* Mockito
+
+Cloud & Container Platform
+
+* OpenShift (OCP)
+* Kubernetes
+* Docker
+* Helm
+* Service Mesh (Istio)
+* API Gateway
+* Avi Load Balancer
+* Cloud Migration
+
+DevOps
+
+* Git
+* Jenkins
+* Harness
+* Liquibase
+* CI/CD Pipelines
+
+Automation
+
+* PowerShell
+* Autosys
+* Shell Scripting
+
+File Integration
+
+* NAS
+* IBM NDM / Connect:Direct
+* SFTP
+* Batch Processing
+
+Monitoring
+
+* Splunk
+* Grafana
+* Prometheus
+* AppDynamics
+
+⸻
+
+Architecture Experience Required
+
+* Enterprise Data Architecture
+* Event-Driven Systems
+* Distributed Systems
+* High Availability Design
+* Disaster Recovery
+* Multi-Region Deployment
+* Data Retention & Compliance
+* Cloud Migration Strategy
+* Performance Engineering
+* Capacity Planning
+
+⸻
+
+Responsibilities
+
+* Design and develop enterprise-scale ETL pipelines.
+* Modernize legacy ETL solutions to Spark/Databricks.
+* Build high-performance Kafka-based event ingestion platforms.
+* Lead SQL Server optimization and database migration initiatives.
+* Design cloud-native applications on OpenShift/Kubernetes.
+* Build resilient microservices using Spring Boot.
+* Lead architecture discussions and technical design reviews.
+* Mentor development teams and establish engineering standards.
+* Troubleshoot production issues across the application, database, Kafka, and infrastructure layers.
+* Drive DevOps automation and CI/CD improvements.
+* Collaborate with infrastructure, DBA, cloud, and application teams.
+
+⸻
+
+Nice to Have
+
+* Azure Cloud
+* AI-assisted development (Devin, GitHub Copilot, ChatGPT)
+* MCP (Model Context Protocol)
+* Data Governance
+* Tableau / Power BI
+* Python
+
+⸻
+
+Soft Skills
+
+* Technical Leadership
+* Solution Architecture
+* Stakeholder Communication
+* Agile/Scrum
+* Root Cause Analysis
+* Mentoring
+* Design Documentation
+
+⸻
+
+Candidate Profile
+
+This role is best suited for a Senior/Lead Data Platform Engineer, Principal Data Engineer, or Solution Architect who has end-to-end ownership across:
+
+* SQL Server & ETL
+* Kafka & Event Streaming
+* Java Microservices
+* OpenShift/Kubernetes
+* Databricks/Spark modernization
+* DevOps & CI/CD
+* Enterprise Architecture
+* Banking domain compliance and large-scale data platforms
+
+This job description is closely aligned with the responsibilities you’ve described across your DocD platform at Wells Fargo, including SQL Server, SSIS, Kafka, Java Spring Boot, OpenShift migration, NGDC modernization, Autosys, PowerShell, and the planned migration to Spark/Databricks. It should help you identify someone who can effectively complement or back up your current role rather than just filling a generic senior developer position.
