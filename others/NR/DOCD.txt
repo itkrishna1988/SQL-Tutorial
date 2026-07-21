@@ -750,3 +750,292 @@ This role is best suited for a Senior/Lead Data Platform Engineer, Principal Dat
 * Banking domain compliance and large-scale data platforms
 
 This job description is closely aligned with the responsibilities you’ve described across your DocD platform at Wells Fargo, including SQL Server, SSIS, Kafka, Java Spring Boot, OpenShift migration, NGDC modernization, Autosys, PowerShell, and the planned migration to Spark/Databricks. It should help you identify someone who can effectively complement or back up your current role rather than just filling a generic senior developer position.
+
+
+
+
+I think your plan is the right one for a training session.
+
+For tomorrow’s training, don’t try to solve everything (Object Store, multiple pods, autoscaling, etc.). Instead, keep the scope narrow:
+
+* Learn the existing SSIS package.
+* Generate a Spring Batch equivalent.
+* Run it successfully with one pod.
+* Use a sample file packaged with the application (for example, under src/main/resources/input) until your Object Store is available.
+* Add Object Store support and multi-pod processing later.
+
+That’s a realistic and achievable goal.
+
+⸻
+
+Step 1: Create Devin Knowledge
+
+Create one Knowledge item called something like:
+
+DocD Modernization Project
+
+Attach it to these repositories:
+
+* app-DOCd-ca01625-docd
+* app-docd-sqlserver-db
+* app-docd-batch-spring
+
+I would include information like this:
+
+⸻
+
+Project Overview
+
+DocD is an enterprise document tracking platform. Existing ETL is implemented using SQL Server Integration Services (SSIS). Business logic primarily resides in SQL Server stored procedures. The modernization goal is to migrate SSIS packages to Spring Batch running on OpenShift.
+
+⸻
+
+Source repositories
+
+Repository
+
+app-DOCd-ca01625-docd
+
+Contains:
+
+* SSIS Solutions
+* SSIS Packages
+* DTSX packages
+* Package configurations
+* Control Flow
+* Data Flow
+
+The first package to migrate is
+
+mailed_by_pv.dtsx
+
+⸻
+
+Repository
+
+app-docd-sqlserver-db
+
+Contains
+
+* SQL Server schema
+* Tables
+* Stored procedures
+* Functions
+* Views
+* Configuration tables
+
+This repository contains the business logic used by SSIS packages.
+
+⸻
+
+Target repository
+
+app-docd-batch-spring
+
+Contains the new Spring Boot + Spring Batch implementation.
+
+⸻
+
+Technology
+
+Target stack
+
+* Java 21
+* Spring Boot 3
+* Spring Batch
+* SQL Server
+* Maven
+* OpenShift
+
+⸻
+
+Current training scope
+
+Only migrate
+
+mailed_by_pv.dtsx
+
+Ignore
+
+* Object Store
+* Multiple Pods
+* Kafka
+* Autosys
+* Scheduling
+
+Use a local sample input file packaged with the application until Object Store integration is available.
+
+⸻
+
+Coding standards
+
+* Keep business logic in SQL stored procedures unless migration requires otherwise.
+* Use constructor injection.
+* Follow Spring Boot best practices.
+* Produce clean, maintainable code.
+* Add logging.
+* Add exception handling.
+* Make jobs restartable where practical.
+
+⸻
+
+Step 2: First Ask Devin prompt
+
+Don’t ask it to write code yet.
+
+Ask it to learn first.
+
+Something like:
+
+Learn the DocD project using the attached repositories.
+
+Repository 1 (app-DOCd-ca01625-docd) contains all SSIS packages.
+
+Repository 2 (app-docd-sqlserver-db) contains SQL Server schema, stored procedures, functions, configuration tables and business logic.
+
+Study both repositories together and build an understanding of the architecture.
+
+Focus particularly on mailed_by_pv.dtsx.
+
+Explain:
+
+* overall package purpose
+* control flow
+* data flow
+* source files
+* destination tables
+* stored procedures called
+* configuration tables
+* audit tables
+* dependencies
+* error handling
+* restart behavior
+* assumptions made by the package
+
+Do not generate code yet.
+
+Produce a complete migration analysis document.
+
+⸻
+
+Step 3: Second Ask Devin prompt
+
+After it understands the package:
+
+Based on your understanding of the SSIS package and SQL repository, produce a Spring Batch migration design.
+
+Do not generate code.
+
+Include:
+
+* architecture
+* package structure
+* readers
+* processors
+* writers
+* tasklets
+* job flow
+* restartability
+* logging
+* exception handling
+* configuration
+* OpenShift deployment
+* future Object Store integration
+* future multi-pod support
+
+The initial implementation should support a single pod and use a sample file packaged with the application for training purposes.
+
+⸻
+
+This approach gives Devin the chance to build an accurate mental model of your system before it starts generating code, which usually leads to much better results.
+
+I agree with your idea of discussing the Ask Devin and Knowledge setup first. Once you’ve completed that part in the training, we can work on a detailed Agent session prompt that instructs Devin to implement the Spring Batch project in app-docd-batch-spring incrementally.
+
+
+For your first training session, I’d make the prompt very explicit. Give Devin a single, well-scoped objective instead of asking it to convert everything at once.
+
+⸻
+
+Devin Agent Session Prompt
+
+You are assisting with the modernization of the Wells Fargo DocD platform.
+The following repositories are attached to this session.
+1. app-DOCd-ca01625-docd
+   - Contains all SSIS solutions and SSIS packages.
+   - The package to migrate is:
+     mailed_by_pv.dtsx
+2. app-docd-sqlserver-db
+   - Contains SQL Server database schema, tables, views, functions, stored procedures and configuration objects.
+   - This repository contains the business logic used by the SSIS packages.
+3. app-docd-batch-spring
+   - This is the target repository.
+   - Implement the new Spring Boot + Spring Batch solution here.
+Before writing any code, analyze both source repositories together and understand how mailed_by_pv.dtsx works.
+Determine:
+• Purpose of the package
+• Control Flow
+• Data Flow
+• Variables
+• Parameters
+• Connection Managers
+• Source files
+• Destination tables
+• Stored procedures invoked
+• Database dependencies
+• Audit tables
+• Configuration tables
+• Error handling
+• Restart behavior
+• Business rules
+• Any assumptions or external dependencies
+After completing the analysis, produce a migration summary and wait for implementation.
+Once the analysis is complete, implement a Spring Boot 3 and Spring Batch application in the app-docd-batch-spring repository.
+Requirements:
+• Java 21
+• Maven
+• Spring Boot 3
+• Spring Batch
+• SQL Server
+• Follow Spring Boot best practices.
+• Use constructor injection.
+• Add structured logging.
+• Add exception handling.
+• Produce clean, maintainable code.
+Training scope:
+This is only a proof of concept.
+Do NOT implement:
+- Object Store integration
+- Kafka
+- Multiple pod coordination
+- Autosys scheduling
+- OpenShift CronJobs
+Instead:
+Create a sample input file under:
+src/main/resources/input/
+The batch job should read the sample file packaged inside the application so it can run successfully during training.
+Design the application so that file access is isolated behind a service interface. This allows Object Store integration to be added later without changing the batch processing logic.
+Keep all existing business logic in SQL stored procedures whenever practical instead of rewriting it into Java.
+Create the project incrementally.
+For every major milestone:
+1. Explain what you learned.
+2. Explain what changes you are making.
+3. Commit changes.
+4. Wait for my approval before continuing to the next milestone.
+If any business logic is unclear, ask questions instead of making assumptions.
+Do not simplify business rules.
+The goal is to create a production-quality Spring Batch foundation that can later be extended for Object Store integration, multiple OpenShift pods, scheduling and cloud-native deployment.
+
+⸻
+
+Why this prompt is good
+
+This prompt tells Devin to:
+
+* Learn first instead of immediately coding.
+* Use both your SSIS and SQL Server repositories together.
+* Write code only in your new app-docd-batch-spring repository.
+* Keep the first implementation simple by reading a bundled sample file.
+* Build the application in a way that future enhancements (Object Store, multiple pods, scheduling) can be added with minimal changes.
+
+For a live training session, this phased approach is much more likely to produce a successful end-to-end proof of concept than trying to solve every production concern in the first iteration.
+
